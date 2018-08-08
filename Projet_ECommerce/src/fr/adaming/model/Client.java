@@ -1,6 +1,7 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,9 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.jboss.resteasy.spi.touri.MappedBy;
-
+/** Classe développée par Steven */
 @Entity
 @Table(name="clients")
 public class Client implements Serializable{
@@ -29,9 +28,9 @@ public class Client implements Serializable{
 	private String email;
 	private String tel;
 	
-	/** transforation de l'association UML en Java */
+	/** transforation de l'association UML en Java | Client = classe esclave car relation 1:n */
 	@OneToMany(mappedBy="client", cascade=CascadeType.REMOVE, fetch=FetchType.LAZY)
-	private Commande commande; /** erreur : En attente de la classe Commande dans le projet */
+	private List<Commande> listeCommandes; 
 	
 	/** constructeurs */
 	public Client() {
