@@ -1,36 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>accueil Facelet</title>
 </h:head>
-<h:body>
 
-<p:breadCrumb>
-    <p:menuitem value="Accueil" url="accueil.xhtml" />
-    <p:menuitem value="AjoutCat" url="ajout.xhtml" />
-    <p:menuitem value="ModifCat" url="modif.xhtml" />
-    <p:menuitem value="SuppCat" url="supprim.xhtml" />
-    <p:menuitem value="RechCat" url="recherche.xhtml" />
-</p:breadCrumb>
+<h:body>
 
 <h1 style="background-color: red ; text-align: center " > Ajout de categories</h1>
 
 
-<h:form>
-		<h:panelGrid columns="2">
-			Nom Categorie: <h:inputText value="#{catMB.categorie.nom}"></h:inputText>
-			Photo: <h:inputText value="#{catMB.categorie.photo}"></h:inputText>
-			Description: <h:inputText value="#{catMB.categorie.description}"></h:inputText>
+<h:form enctype="multipart/form-data">
+Nom Categorie: <h:inputText value="#{catMB.categorie.nom}"></h:inputText>
+Description: <h:inputText value="#{catMB.categorie.description}"></h:inputText>
+Photo: <p:fileUpload value="#{catMB.file}" mode="Simple" skinSimple="true"/>
 
-			<h:commandButton value="Ajout Categorie" action="#{catMB.addCategorie}" />
-		</h:panelGrid>
+			
+<h:commandButton value="Ajout Categorie" action="#{catMB.addCategorie}" />
 </h:form>
 
 <h1 style="color: crimson; text-align: center"><h:messages /></h1>
