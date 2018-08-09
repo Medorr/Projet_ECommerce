@@ -1,5 +1,7 @@
 package fr.adaming.Service;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
@@ -30,6 +32,11 @@ public class ClientServiceImpl implements IClientService{
 	@Override
 	public Client supprClient(Client cl) {		
 		return clDao.supprClient(cl);
+	}
+
+	@Override
+	public List<Client> getAllClient() {
+		return clDao.getAllClient();
 	}
 
 }
