@@ -1,8 +1,35 @@
 package fr.adaming.model;
 
-public class Produit {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-	//Attributs
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="produits")
+public class Produit implements Serializable{
+
+	/** Transformation des associations UML en JAVA
+	  */
+	@ManyToOne
+	@JoinColumn(name="id_cat", referencedColumnName="cat_id")
+	private Categorie categorie;
+	
+	
+	
+	/**Declaration des Attributs*/
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_p")
 	private Long id;
 	private String designation;
 	private String description;
@@ -11,7 +38,7 @@ public class Produit {
 	private boolean selectionne;
 	private String photo;
 	
-	//Constructeurs
+	/** Declaration des Constructeurs*/
 	public Produit() {
 		super();
 	}
@@ -37,7 +64,7 @@ public class Produit {
 		this.photo = photo;
 	}
 	
-	//Getters et setters
+	/**Getters et setters*/
 	public Long getId() {
 		return id;
 	}
@@ -79,6 +106,20 @@ public class Produit {
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	public Categorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	
+	/** Declaration de la methode toString*/
+	@Override
+	public String toString() {
+		return "Produit [id=" + id + ", designation=" + designation + ", description=" + description + ", prix=" + prix
+				+ ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo=" + photo + "]";
 	}
 	
 	
