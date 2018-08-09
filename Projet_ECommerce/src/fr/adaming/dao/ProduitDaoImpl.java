@@ -7,20 +7,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.commons.codec.binary.Base64;
+import org.jboss.security.Base64Utils;
+
 import fr.adaming.model.Produit;
 
 @Stateful
-public class ProduitDaoImpl implements IProduitDao{
-	@PersistenceContext(unitName="PU")
+public class ProduitDaoImpl implements IProduitDao {
+	@PersistenceContext(unitName = "PU")
 	private EntityManager em;
-	
-	
+
 	@Override
 	public int ajoutProduit(Produit pr) {
 		em.persist(pr);
-		if(em.find(Produit.class, pr) != null){
+		if (em.find(Produit.class, pr.getId()) != null) {
 			return 1;
-		}else{
+		} else {
 			return 0;
 		}
 	}
@@ -29,9 +31,9 @@ public class ProduitDaoImpl implements IProduitDao{
 	public int modifProduit(Produit pr) {
 		Produit prIn = em.find(Produit.class, pr);
 		em.merge(prIn);
-		if(em.find(Produit.class, pr).toString()==prIn.toString()){
+		if (em.find(Produit.class, pr).toString() == prIn.toString()) {
 			return 1;
-		}else{
+		} else {
 			return 0;
 		}
 	}
@@ -41,14 +43,14 @@ public class ProduitDaoImpl implements IProduitDao{
 		String req = "SELECT pr FROM Produit pr";
 		Query queryListPr = em.createQuery(req);
 		int size1 = queryListPr.getResultList().size();
-		
+
 		em.remove(pr);
-		
+
 		int size2 = queryListPr.getResultList().size();
-		
-		if (size2 == (size1-1)){
+
+		if (size2 == (size1 - 1)) {
 			return 1;
-		}else{
+		} else {
 			return 2;
 		}
 	}
@@ -56,10 +58,10 @@ public class ProduitDaoImpl implements IProduitDao{
 	@Override
 	public Produit rechProduit(Produit pr) {
 		Produit prOut = em.find(Produit.class, pr);
-		if(prOut != null){
+		if (prOut != null) {
 			return prOut;
-		}else{
-			return null;	
+		} else {
+			return null;
 		}
 	}
 
@@ -68,12 +70,13 @@ public class ProduitDaoImpl implements IProduitDao{
 		String req = "SELECT pr FROM Produit pr";
 		Query queryListProduit = em.createQuery(req);
 		List<Produit> listeProduit = queryListProduit.getResultList();
-		if (listeProduit != null){
-			return listeProduit;
-		}else{
-			return null;
+
+		for (Produit pr : listeProduit) {
+			pr.setImage("data:image/png);base64," + Base64.encodeBase64String(pr.getPhoto()));
 		}
-		
+
+		return listeProduit;
+
 	}
 
 }

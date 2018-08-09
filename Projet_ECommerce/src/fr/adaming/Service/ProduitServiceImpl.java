@@ -41,7 +41,7 @@ public class ProduitServiceImpl implements IProduitService{
 	@Override
 	public List<Produit> getAllProduit() {
 		// TODO Auto-generated method stub
-		return null;
+		return prDao.getAllProduit();
 	}
 	
 

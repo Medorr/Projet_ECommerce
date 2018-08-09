@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>ajout produit facelet</title>
+
+</h:head>
+<h:body>
+	<h1>Formulaire d'ajout d'un produit</h1>
+	<h:form enctype="multipart/form-data">
+		Designation : <p:inputText value="#{prMB.produit.designation}" />
+		Description : <p:inputText value="#{prMB.produit.description}" />
+		Prix : <p:inputText value="#{prMB.produit.prix}" />
+
+		<p:fileUpload value="#{prMB.file}" mode="simple" skinSimple="true"/>
+		<h:commandButton value="Ajouter" action="#{prMB.ajoutProduit}" />
+	</h:form>
+
+
+
+
+</h:body>
+</html>

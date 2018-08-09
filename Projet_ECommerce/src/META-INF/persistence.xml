@@ -16,7 +16,7 @@
 
 		<properties>
 			<!-- specifier la strategie de creation des tables -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<!-- afficher les req SQL genérées -->
 			<property name="hibernate.show_sql" value="true" />
 		</properties>

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -39,14 +40,19 @@ public class Produit implements Serializable{
 	private int quantite;
 	@Transient
 	private boolean selectionne;
-	private String photo;
 	
+	
+	@Lob
+	private byte[] photo;
+	
+	@Transient
+	private String image;
 	/** Declaration des Constructeurs*/
 	public Produit() {
 		super();
 	}
 	public Produit(String designation, String description, Double prix, int quantite, boolean selectionne,
-			String photo) {
+			byte[] photo) {
 		super();
 		this.designation = designation;
 		this.description = description;
@@ -56,7 +62,7 @@ public class Produit implements Serializable{
 		this.photo = photo;
 	}
 	public Produit(Long id, String designation, String description, Double prix, int quantite, boolean selectionne,
-			String photo) {
+			byte[] photo) {
 		super();
 		this.idProduit = id;
 		this.designation = designation;
@@ -104,10 +110,10 @@ public class Produit implements Serializable{
 	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
 	}
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
-	public void setPhoto(String photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 	public Categorie getCategorie() {
@@ -123,11 +129,19 @@ public class Produit implements Serializable{
 		this.listeLigneCo = listeLigneCo;
 	}
 	
+	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	/** Declaration de la methode toString*/
 	@Override
 	public String toString() {
 		return "Produit [id=" + idProduit + ", designation=" + designation + ", description=" + description + ", prix=" + prix
-				+ ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo=" + photo + "]";
+				+ ", quantite=" + quantite + ", selectionne=" + selectionne +  "]";
 	}
 	
 	
