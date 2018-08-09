@@ -28,17 +28,64 @@ public class CategorieDaoImpl implements ICategorieDao{
 		
 		@SuppressWarnings("unchecked")
 		List<Categorie> listeCatJPQL=queryList.getResultList();
-		
-		//Afficher 
+		if (listeCatJPQL!=null){
+		//Afficher la liste 
 		return queryList.getResultList();
+		} else{
+			return null;
+		}
 	}
-	
-//	/** Recuperer la liste des categorie avec SQL*/
-//	/**Creation de EMF*/
-//	EntityManagerFactory emf=Persistence.createEntityManagerFactory("PU");
-//	
-//	/**Creation de EM*/
-//	EntityManager em=emf.createEntityManager();
+
+	@Override
+	public Categorie ajouterCategorie(Categorie cat) {
+		em.persist(cat);
+		if(em.find(Categorie.class, cat)!=null){
+			return cat;
+		}else{
+			return null;
+		}
+	}
+
+	@Override
+	public int modifCategorie(Categorie cat) {
+		// je recupere une Categorie 
+		Categorie catBD=em.find(Categorie.class, cat);
+		//je le parsiste dans la BD
+		em.persist(catBD);
+		if(em.find(Categorie.class, cat)!=null){
+			return 1;
+		}else{
+		
+		return 0;
+		}
+	}
+
+	@Override
+	public int supprCategorie(Categorie cat) {
+	//recuperer une categorie 
+		Categorie catBD=em.find(Categorie.class, cat);
+		//je le parsiste
+		em.persist(catBD);
+		
+		if(em.find(Categorie.class, catBD)!=null){
+			
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public Categorie rechCategorie(Categorie cat) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Categorie getCategorieById(Categorie cat) {
+		// TODO Auto-generated method stub
+		return em.find(Categorie.class, cat.getId());
+	}
+
 
 
 

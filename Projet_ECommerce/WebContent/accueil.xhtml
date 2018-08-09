@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>accueil Facelet</title>
+</h:head>
+<h:body>
+
+<p:breadCrumb>
+    <p:menuitem value="Accueil" url="accueil.xhtml" />
+    <p:menuitem value="AjoutCat" url="ajout.xhtml" />
+    <p:menuitem value="ModifCat" url="modif.xhtml" />
+    <p:menuitem value="SuppCat" url="supprim.xhtml" />
+    <p:menuitem value="RechCat" url="recherche.xhtml" />
+</p:breadCrumb>
+
+<h1 style="background-color: red ; text-align: center " > La liste des categories</h1>
+
+<p:dataTable var="cat" value="#{sessionScope.ListeCat}">
+    <p:column headerText="Id_categorie">
+        <h:outputText value="#{cat.id}" />
+    </p:column>
+ 
+    <p:column headerText="Nom_Categorie">
+        <h:outputText value="#{cat.nom}" />
+    </p:column>
+ 
+    <p:column headerText="Photo">
+        <h:outputText value="#{cat.photo}" />
+    </p:column>
+ 
+    <p:column headerText="Description">
+        <h:outputText value="#{cat.description}"/>
+    </p:column>
+    
+</p:dataTable>
+
+
+
+
+
+
+
+</h:body>
+</html>
