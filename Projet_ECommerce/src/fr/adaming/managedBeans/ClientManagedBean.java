@@ -55,7 +55,7 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	/** Methodes du client */
-	public String enregistrerClient() {
+	public String ajoutClient() {
 		Client clEnr = clService.enregistrerClient(client);
 
 		if (clEnr.getIdClient() != 0) {
@@ -69,6 +69,21 @@ public class ClientManagedBean implements Serializable {
 			return "enregistrement";
 		}
 
+	}
+	public String modifClient(){
+		Client clModif = clService.modifClient(client);
+		
+		if (clModif.getIdClient() != 0) {
+			/** Recuperer la liste */
+			List<Client> listeCl = clService.getAllClient();
+
+			return "affCl";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'enregistrement du client a echoué"));
+			
+			return "enregistrement";
+		}
+	
 	}
 	
 

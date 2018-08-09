@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="produits")
@@ -31,11 +32,12 @@ public class Produit implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_p")
-	private Long id;
+	private Long idProduit;
 	private String designation;
 	private String description;
 	private Double prix;
 	private int quantite;
+	@Transient
 	private boolean selectionne;
 	private String photo;
 	
@@ -56,7 +58,7 @@ public class Produit implements Serializable{
 	public Produit(Long id, String designation, String description, Double prix, int quantite, boolean selectionne,
 			String photo) {
 		super();
-		this.id = id;
+		this.idProduit = id;
 		this.designation = designation;
 		this.description = description;
 		this.prix = prix;
@@ -67,10 +69,10 @@ public class Produit implements Serializable{
 	
 	/**Getters et setters*/
 	public Long getId() {
-		return id;
+		return idProduit;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.idProduit = id;
 	}
 	public String getDesignation() {
 		return designation;
@@ -124,7 +126,7 @@ public class Produit implements Serializable{
 	/** Declaration de la methode toString*/
 	@Override
 	public String toString() {
-		return "Produit [id=" + id + ", designation=" + designation + ", description=" + description + ", prix=" + prix
+		return "Produit [id=" + idProduit + ", designation=" + designation + ", description=" + description + ", prix=" + prix
 				+ ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo=" + photo + "]";
 	}
 	
