@@ -33,10 +33,10 @@ public class Commande implements Serializable{
 	@JoinColumn(name="cl_id", referencedColumnName="id_cl")
 	private Client client;
 	
-	@ManyToMany /** erreur : en attente de l'annotation @entity sur la classe Produit */
-	/** Dans l'association Commande <--> Produit, on considère Commande comme la classe maître et Produit comme la classe esclave */
-	@JoinTable(name="comm_prod", joinColumns=@JoinColumn(name="co_id"), inverseJoinColumns=@JoinColumn(name="p_id"))
-	private List<Produit> listeProduits = new ArrayList<Produit>();
+	@ManyToOne
+	@JoinColumn(name="lc_id", referencedColumnName="id_lc")
+	private List<LigneCommande> listeLigneCo;
+	
 	
 	/** Constructeurs */
 	public Commande() {
@@ -64,6 +64,18 @@ public class Commande implements Serializable{
 	}
 	public void setDateCommande(Date dateCommande) {
 		this.dateCommande = dateCommande;
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	public List<LigneCommande> getListeLigneCo() {
+		return listeLigneCo;
+	}
+	public void setListeLigneCo(List<LigneCommande> listeLigneCo) {
+		this.listeLigneCo = listeLigneCo;
 	}
 	
 	/** toString */
