@@ -21,7 +21,7 @@
 
 <h1 style="background-color: red ; text-align: center " > La liste des categories</h1>
 
-<p:dataTable var="cat" value="#{sessionScope.ListeCat}">
+<p:dataTable var="cat" value="#{catMB.listeCat}">
     <p:column headerText="Id_categorie">
         <h:outputText value="#{cat.id}" />
     </p:column>
@@ -31,7 +31,7 @@
     </p:column>
  
     <p:column headerText="Photo">
-        <h:outputText value="#{cat.photo}" />
+        <h:graphicImage value="#{cat.image}" style="width:100px;height:100px"/>
     </p:column>
  
     <p:column headerText="Description">

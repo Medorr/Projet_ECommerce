@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.commons.codec.binary.Base64;
+
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
 @Stateless //** Pour la methode DAO, on utilie stateless pour qu'il garde son etat*/
@@ -28,22 +30,25 @@ public class CategorieDaoImpl implements ICategorieDao{
 		
 		@SuppressWarnings("unchecked")
 		List<Categorie> listeCatJPQL=queryList.getResultList();
-		if (listeCatJPQL!=null){
-		//Afficher la liste 
-		return queryList.getResultList();
-		} else{
-			return null;
+		
+		for(Categorie cat:listeCatJPQL){
+			cat.setImage("data:image/png);base64," + Base64.encodeBase64String(cat.getPhoto()));
 		}
+
+
+		return queryList.getResultList();
+
+
 	}
 
 	@Override
 	public Categorie ajouterCategorie(Categorie cat) {
 		em.persist(cat);
-		if(em.find(Categorie.class, cat)!=null){
+		//if(em.find(Categorie.class, cat)!=null){
 			return cat;
-		}else{
-			return null;
-		}
+		//}else{
+			//return null;
+		//}
 	}
 
 	@Override
@@ -82,8 +87,12 @@ public class CategorieDaoImpl implements ICategorieDao{
 
 	@Override
 	public Categorie getCategorieById(Categorie cat) {
-		// TODO Auto-generated method stub
-		return em.find(Categorie.class, cat.getId());
+
+		Categorie catOut=em.find(Categorie.class, cat.getId());
+		
+		catOut.setImage("data:image/png);base64," + Base64.encodeBase64String(catOut.getPhoto()));
+		
+		return catOut;
 	}
 
 

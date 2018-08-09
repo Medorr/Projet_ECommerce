@@ -12,19 +12,24 @@
 
 <h:body>
 
-<h1 style="background-color: red ; text-align: center " > Ajout de categories</h1>
+	<h1 style="background-color: red; text-align: center">Ajout de
+		categories</h1>
 
 
-<h:form enctype="multipart/form-data">
-Nom Categorie: <h:inputText value="#{catMB.categorie.nom}"></h:inputText>
-Description: <h:inputText value="#{catMB.categorie.description}"></h:inputText>
-Photo: <p:fileUpload value="#{catMB.file}" mode="Simple" skinSimple="true"/>
+	<h:form enctype="multipart/form-data">
+		<h:panelGrid columns="2">
+			Nom Categorie: <h:inputText value="#{catMB.categorie.nom}"></h:inputText>
+			Description: <h:inputText value="#{catMB.categorie.description}"></h:inputText>
+			Photo: <p:fileUpload value="#{catMB.file}" mode="simple" skinSimple="true" />
 
-			
-<h:commandButton value="Ajout Categorie" action="#{catMB.addCategorie}" />
-</h:form>
 
-<h1 style="color: crimson; text-align: center"><h:messages /></h1>
+			<h:commandButton value="Ajout Categorie" action="#{catMB.addCategorie}" />
+		</h:panelGrid>
+	</h:form>
+
+	<h1 style="color: crimson; text-align: center">
+		<h:messages />
+	</h1>
 
 
 
