@@ -2,12 +2,14 @@ package fr.adaming.dao;
 
 import java.util.List;
 
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import fr.adaming.model.Produit;
 
+@Stateful
 public class ProduitDaoImpl implements IProduitDao{
 	@PersistenceContext(unitName="PU")
 	private EntityManager em;
