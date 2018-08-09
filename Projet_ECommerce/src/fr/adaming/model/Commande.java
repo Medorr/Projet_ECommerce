@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /** Classe développée par Steven */
 @Entity
@@ -33,8 +34,7 @@ public class Commande implements Serializable{
 	@JoinColumn(name="cl_id", referencedColumnName="id_cl")
 	private Client client;
 	
-	@ManyToOne
-	@JoinColumn(name="lc_id", referencedColumnName="id_lc")
+	@OneToMany(mappedBy="commande")
 	private List<LigneCommande> listeLigneCo;
 	
 	
