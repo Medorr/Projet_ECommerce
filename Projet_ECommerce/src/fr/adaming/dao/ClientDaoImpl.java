@@ -1,10 +1,11 @@
 package fr.adaming.dao;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.adaming.model.Client;
-
+@Stateless
 public class ClientDaoImpl implements IClientDao{
 	
 	/**appel de EntityManager*/
@@ -13,18 +14,18 @@ public class ClientDaoImpl implements IClientDao{
 	
 	/** Methode pour enregister client*/
 	@Override
-	public Client enregistrerClientDao(Client cl) {
+	public Client enregistrerClient(Client cl) {
 		em.persist(cl);
 		return cl;
 	}
 	/** Methode pour modifier client*/
 	@Override
-	public Client modifClientDao(Client cl) {
+	public Client modifClient(Client cl) {
 		em.merge(cl);
 		return cl;
 	}
 	@Override
-	public Client supprClientDao(Client cl) {
+	public Client supprClient(Client cl) {
 		em.remove(cl);
 		return cl;
 	}

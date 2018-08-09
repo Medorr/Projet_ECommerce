@@ -2,22 +2,24 @@ package fr.adaming.dao;
 
 
 
-import fr.adaming.model.Client;
+import javax.ejb.Local;
 
+import fr.adaming.model.Client;
+@Local
 public interface IClientDao {
 	
 	/**
 	 *  Methode pour enregistrer le client
 	 */
-	public Client enregistrerClientDao(Client cl);
+	public Client enregistrerClient(Client cl);
 	
 	/** 
 	 * Methode pour modifier le client
 	 */
-	public Client modifClientDao(Client cl);
+	public Client modifClient(Client cl);
 	
 	/**
 	* Methode pour supprimer le client 
 	 */
-	public Client supprClientDao(Client cl);
+	public Client supprClient(Client cl);
 }
