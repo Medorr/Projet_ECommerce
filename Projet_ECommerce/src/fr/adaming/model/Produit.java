@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,7 +20,7 @@ public class Produit implements Serializable{
 	/** Transformation des associations UML en JAVA
 	  */
 	@ManyToOne
-	@JoinColumn(name="id_cat", referencedColumnName="cat_id")
+	@JoinColumn(name="cat_id", referencedColumnName="id_cat")
 	private Categorie categorie;
 	
 	
