@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Enregistrement Client</title>
+</h:head>
+<h:body>
+<h:form>
+		<h:panelGrid columns="2">
+			Nom: <h:inputText value="#{clMB.client.nomClient}"></h:inputText>
+			Adresse: <h:inputText value="#{clMB.client.adresse}"></h:inputText>
+			Mail: <h:inputText value="#{clMB.client.email}"></h:inputText>
+			Telephone: <h:inputText value="#{clMB.client.tel}"></h:inputText>
+
+			<h:commandButton value="Enregistrer"
+				action="#{clMB.enregistrerClient}" />
+		</h:panelGrid>
+</h:form>
+
+<h1 style="color: crimson; text-align: center"><h:messages /></h1>
+
+
+</h:body>
+</html>

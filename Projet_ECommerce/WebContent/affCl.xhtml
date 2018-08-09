@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+<title>Afficher liste clients</title>
+</h:head>
+<h:body>
+<p:dataTable var="a" value="#{clMB.client}" stickyHeader="true">
+    <p:column headerText="Id client">
+        <h:outputText value="#{a.idClient}" />
+    </p:column>
+    <p:column headerText="Nom client">
+        <h:outputText value="#{a.nomClient}" />
+    </p:column>
+    <p:column headerText="Adresse">
+        <h:outputText value="#{a.adresse}" />
+    </p:column>
+    <p:column headerText="Mail">
+        <h:outputText value="#{a.email}" />
+    </p:column>
+     <p:column headerText="Telephone">
+        <h:outputText value="#{a.tel}" />
+    </p:column>
+</p:dataTable>
+</h:body>
+</html>
