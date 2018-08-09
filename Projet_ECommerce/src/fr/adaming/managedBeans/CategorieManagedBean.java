@@ -11,6 +11,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.model.UploadedFile;
+
 import fr.adaming.Service.ICategorieService;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
@@ -29,10 +31,13 @@ public class CategorieManagedBean implements Serializable{
 	HttpSession maSession;
 	private List<Categorie> listeCat;
 	
+	//Attribut pour l'image
+	private UploadedFile file;
+	
 	// Cosntructeur vide
 	public CategorieManagedBean() {
 		super();
-		this.categorie=new Categorie(); // Pour eviter l'exeption targetIrechable
+		this.categorie=new Categorie(); // Pour eviter l'exeption Target Unreachable,
 	}
 	// Cette methode sera utilisée juste apres l'instanciation du MB
 	@PostConstruct
@@ -57,8 +62,24 @@ public class CategorieManagedBean implements Serializable{
 	public void setListeCat(List<Categorie> listeCat) {
 		this.listeCat = listeCat;
 	}
+		
+	public Produit getProduit() {
+		return produit;
+	}
+	public void setProduit(Produit produit) {
+		this.produit = produit;
+	}
+	public UploadedFile getFile() {
+		return file;
+	}
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
 	//****************************************************************************************************
 	public String addCategorie(){
+		
+		this.categorie.setPhoto(file.getContents());
+		
 		//Recuperer une categorie depuis la BD
 		Categorie catAjout=catService.ajouterCategorie(categorie);
 		
@@ -76,9 +97,5 @@ public class CategorieManagedBean implements Serializable{
 		}
 		
 	}
-	
-	
-	
-	
 
 }
