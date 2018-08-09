@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name="categories")
 public class Categorie implements Serializable{
 	
-	//Les attributs
+	/**Les attributs*/
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_cat")
@@ -27,16 +27,16 @@ public class Categorie implements Serializable{
 	private byte photo;
 	private String description;
 	
-	//Transformation de l'asso UML en JAVA
+	/**Transformation de l'asso UML en JAVA*/
 	@OneToMany(mappedBy="categorie", cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Produit> listeProduits;
 	
-	//Constructeur vide 
+	/**Constructeur vide */
 	public Categorie() {
 		super();
 	}
 
-	//Constructeur sans id
+	/**Constructeur sans id*/
 	public Categorie(String nom, byte photo, String description) {
 		super();
 		this.nom = nom;
@@ -44,7 +44,7 @@ public class Categorie implements Serializable{
 		this.description = description;
 	}
 
-	//Constructeur avec id
+	/**Constructeur avec id*/
 	public Categorie(Long id, String nom, byte photo, String description) {
 		super();
 		this.id = id;
@@ -52,7 +52,7 @@ public class Categorie implements Serializable{
 		this.photo = photo;
 		this.description = description;
 	}
-	//Getters et setters 
+	/**Getters et setters */
 
 	public Long getId() {
 		return id;
@@ -102,7 +102,7 @@ public class Categorie implements Serializable{
 		this.listeProduits = listeProduits;
 	}
 
-	//Methodes toString
+	/**Methodes toString*/
 	@Override
 	public String toString() {
 		return "Categorie [idCat=" + id + ", nom=" + nom + ", photo=" + photo + ", description=" + description + "]";
