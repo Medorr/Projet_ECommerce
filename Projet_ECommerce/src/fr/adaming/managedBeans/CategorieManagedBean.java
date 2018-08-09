@@ -57,6 +57,7 @@ public class CategorieManagedBean implements Serializable{
 	public void setListeCat(List<Categorie> listeCat) {
 		this.listeCat = listeCat;
 	}
+	//****************************************************************************************************
 	public String addCategorie(){
 		//Recuperer une categorie depuis la BD
 		Categorie catAjout=catService.ajouterCategorie(categorie);
@@ -71,7 +72,7 @@ public class CategorieManagedBean implements Serializable{
 			return  "accueil";
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Désolé l'ajout à échouer"));
-			return "ajout";
+			return "ajoutCat";
 		}
 		
 	}
