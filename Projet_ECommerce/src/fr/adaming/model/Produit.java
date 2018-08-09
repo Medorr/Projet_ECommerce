@@ -1,7 +1,6 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,7 +23,7 @@ public class Produit implements Serializable{
 	@JoinColumn(name="cat_id", referencedColumnName="id_cat")
 	private Categorie categorie;
 	
-	@OneToMany(mappedBy="id_lc")
+	@OneToMany(mappedBy="produit")
 	private List<LigneCommande> listeLigneCo;
 	
 	
