@@ -36,7 +36,7 @@ public interface IClientDao {
 	public Client getClientById(Client cl);
 	
 	/**
-	* Methode rechercher les clients par nom ou id
+	* Methode rechercher le client par nom 
 	 */
-	public List<Client> getClientByNomOrId(Client cl);
+	public Client getClientByNom(Client cl);
 }

@@ -8,62 +8,75 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import fr.adaming.model.Client;
+
 @Stateless
-public class ClientDaoImpl implements IClientDao{
-	
-	/**appel de EntityManager*/
-	@PersistenceContext(unitName="PU")
+public class ClientDaoImpl implements IClientDao {
+
+	/** appel de EntityManager */
+	@PersistenceContext(unitName = "PU")
 	private EntityManager em;
-	
-	/** Methode pour enregister client*/
+
+	/** Methode pour enregister client */
 	@Override
 	public Client enregistrerClient(Client cl) {
 		em.persist(cl);
 		return cl;
 	}
-	/** Methode pour modifier client*/
+
+	/** Methode pour modifier client */
 	@Override
 	public Client modifClient(Client cl) {
+
 		em.merge(cl);
 		return cl;
+
 	}
-	/** Methode pour supprimer client*/
+
+	/** Methode pour supprimer client */
 	@Override
 	public Client supprClient(Client cl) {
-		em.remove(cl);
-		return cl;
+		Client clOut = em.find(Client.class, cl.getIdClient());
+		try {
+			em.remove(clOut);
+			return clOut;
+		} catch (Exception exep) {
+			exep.printStackTrace();
+		}
+		return null;
 	}
-	/** Methode liste des clients*/
+
+	/** Methode liste des clients */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Client> getAllClient() {
-		/** Req jpql*/
-		String req= "SELECT cl FROM Client as cl";
-		/** Query*/
-		Query query = em.createQuery(req);
-	
-		return query.getResultList();
-	}
-	/**
-	* Methode rechercher un client par id
-	 */
-	@Override
-	public Client getClientById(Client cl) {
-		return em.find(Client.class, cl.getIdClient())
- ;
-	}
-	/**
-	* Methode rechercher les clients par id ou par nom
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Client> getClientByNomOrId(Client cl) {
-		/**Req JPQL*/
-		String req= "SELECT cl FROM Client as cl WHERE cl.nom=:pNom OR cl.idClient=:pIdClient";
-		/**Query*/
+		/** Req jpql */
+		String req = "SELECT cl FROM Client as cl";
+		/** Query */
 		Query query = em.createQuery(req);
 
 		return query.getResultList();
+	}
+
+	/**
+	 * Methode rechercher un client par id
+	 */
+	@Override
+	public Client getClientById(Client cl) {
+		return em.find(Client.class, cl.getIdClient());
+	}
+
+	/**
+	 * Methode rechercher les clients  par nom
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Client getClientByNom(Client cl) {
+		/** Req JPQL */
+		String req = "SELECT cl FROM Client as cl WHERE cl.nom=:pNom";
+		/** Query */
+		Query query = em.createQuery(req);
+
+		return (Client) query.getSingleResult();
 	}
 
 }
