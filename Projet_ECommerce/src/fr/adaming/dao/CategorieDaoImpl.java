@@ -17,6 +17,18 @@ public class CategorieDaoImpl implements ICategorieDao{
 	/**On utilise EJB avec l'annotation JPA*/
 	@PersistenceContext(unitName="PU")
 	private EntityManager em;
+
+	@Override
+	public List<Categorie> getAllCategorie() {// Utilisation de JPQL
+		// Creation de la req JPQL
+		String reqJPQL="SELECT c FROM Categorie as c";
+		
+		// Creation du bus Query
+		Query queryList=(Query) em.createQuery("reqJPQL");
+		
+		//Afficher 
+		return ;
+	}
 	
 //	/** Recuperer la liste des categorie avec SQL*/
 //	/**Creation de EMF*/
@@ -25,18 +37,6 @@ public class CategorieDaoImpl implements ICategorieDao{
 //	/**Creation de EM*/
 //	EntityManager em=emf.createEntityManager();
 
-	@Override
-	public List<Categorie> getAllCategorie() {		
-		/**Creation de la req SQL*/
-		String reqListSQL="SELECT*FROM categories";
-		
-		/**Creation de la liste de Catégorie*/
-		Query queryListSQL=(Query) em.createNativeQuery(reqListSQL, Categorie.class);
-		
-		//** Recuperer la nouvelle liste des catégorie*/
-		List<Categorie> listeSQL=queryListSQL.getResultList();		
-		
-		return query.getResultatList();
-	}
+
 
 }
