@@ -3,11 +3,11 @@ package fr.adaming.dao;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.management.Query;
+
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
@@ -24,10 +24,13 @@ public class CategorieDaoImpl implements ICategorieDao{
 		String reqJPQL="SELECT c FROM Categorie as c";
 		
 		// Creation du bus Query
-		Query queryList=(Query) em.createQuery("reqJPQL");
+		Query queryList=em.createQuery(reqJPQL);
+		
+		@SuppressWarnings("unchecked")
+		List<Categorie> listeCatJPQL=queryList.getResultList();
 		
 		//Afficher 
-		return ;
+		return queryList.getResultList();
 	}
 	
 //	/** Recuperer la liste des categorie avec SQL*/
