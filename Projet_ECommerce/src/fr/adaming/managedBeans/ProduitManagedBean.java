@@ -90,5 +90,48 @@ public class ProduitManagedBean implements Serializable {
 		}
 
 	}
+	
+	public String modifProduit() {
+		
+		this.produit.setPhoto(file.getContents());
+		int prModif = prService.modifProduit(this.produit);
+
+		if (prModif != 0) {
+			listeProduit = prService.getAllProduit();
+			return "listeProduit";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La modification a échoué !"));
+			return "modifProduit";
+		}
+
+	}
+	
+	public String supprProduit(){
+		int prSuppr = prService.supprProduit(this.produit);
+		
+		if(prSuppr != 0){
+			listeProduit = prService.getAllProduit();
+			return "listeProduit";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La suppression a échoué !"));
+			return "supprProduit";
+		}
+		
+	}
+	
+	public String rechProduit(){
+		Produit prRech = prService.rechProduit(this.produit);
+		
+		if(prRech != null){
+			produit = prRech;
+			return "rechProduit";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le produit recherché n'existe pas !"));
+			return "rechProduit";
+		}
+		
+	}
+	
+	
 
 }

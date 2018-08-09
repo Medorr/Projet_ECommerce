@@ -23,19 +23,19 @@ public class ProduitServiceImpl implements IProduitService{
 	@Override
 	public int modifProduit(Produit pr) {
 		
-		return 0;
+		return prDao.modifProduit(pr);
 	}
 
 	@Override
 	public int supprProduit(Produit pr) {
 		// TODO Auto-generated method stub
-		return 0;
+		return prDao.supprProduit(pr);
 	}
 
 	@Override
 	public Produit rechProduit(Produit pr) {
 		// TODO Auto-generated method stub
-		return null;
+		return prDao.rechProduit(pr);
 	}
 
 	@Override

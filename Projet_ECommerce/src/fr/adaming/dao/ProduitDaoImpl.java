@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -19,6 +21,8 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public int ajoutProduit(Produit pr) {
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+		//EntityManager em2 = emf.createEntityManager();
 		em.persist(pr);
 		if (em.find(Produit.class, pr.getIdProduit()) != null) {
 			return 1;
@@ -29,35 +33,32 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public int modifProduit(Produit pr) {
-		Produit prIn = em.find(Produit.class, pr);
-		em.merge(prIn);
-		if (em.find(Produit.class, pr).toString() == prIn.toString()) {
-			return 1;
-		} else {
-			return 0;
-		}
+		String req = "UPDATE Produit pr SET pr.designation=:pDesign, pr.description=:pDescr, pr.prix=:pPrix,pr.Quantite=:pQuant, pr.photo=:pPhoto WHERE pr.id =:pId";
+		Query query = em.createQuery(req);
+		query.setParameter("pDesign", pr.getDesignation());
+		query.setParameter("pDescr", pr.getDescription());
+		query.setParameter("pPrix", pr.getPrix());
+		query.setParameter("pQuant", pr.getQuantite());
+		query.setParameter("pPhoto", pr.getPhoto());
+		query.setParameter("pId", pr.getIdProduit());
+		
+		return query.executeUpdate();
 	}
 
 	@Override
 	public int supprProduit(Produit pr) {
-		String req = "SELECT pr FROM Produit pr";
-		Query queryListPr = em.createQuery(req);
-		int size1 = queryListPr.getResultList().size();
-
+		pr = em.merge(pr);
 		em.remove(pr);
-
-		int size2 = queryListPr.getResultList().size();
-
-		if (size2 == (size1 - 1)) {
-			return 1;
-		} else {
-			return 2;
-		}
+		Produit verif = em.find(Produit.class, pr.getIdProduit());
+		if(verif !=null){
+			return 0; 
+		}else{
+		return 1;}
 	}
 
 	@Override
 	public Produit rechProduit(Produit pr) {
-		Produit prOut = em.find(Produit.class, pr);
+		Produit prOut = em.find(Produit.class, pr.getIdProduit());
 		if (prOut != null) {
 			return prOut;
 		} else {

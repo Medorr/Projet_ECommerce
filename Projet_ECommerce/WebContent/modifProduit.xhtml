@@ -6,23 +6,25 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>ajout produit facelet</title>
+	<title>modif produit facelet</title>
 
 </h:head>
 <h:body>
 <ui:insert>
 	<ui:include src="templates/menuBar.xhtml"></ui:include>
 </ui:insert>
-	<h1>Formulaire d'ajout d'un produit</h1>
+
+	<h1>Formulaire de modification d'un produit</h1>
 	<h:form enctype="multipart/form-data">
-		<h:panelGrid>
+	<h:panelGrid>
+			ID : <p:inputText value="#{prMB.produit.idProduit}" />
 			Designation : <p:inputText value="#{prMB.produit.designation}" />
 			Description : <p:inputText value="#{prMB.produit.description}" />
 			Prix : <p:inputText value="#{prMB.produit.prix}" />
 			Quantité : <p:inputText value="#{prMB.produit.quantite}" />
-	
+			
 			<p:fileUpload value="#{prMB.file}" mode="simple" skinSimple="true"/>
-			<h:commandButton value="Ajouter" action="#{prMB.ajoutProduit}" />
+			<h:commandButton value="Modifier" action="#{prMB.modifProduit}" />
 		</h:panelGrid>
 	</h:form>
 
