@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,8 @@ public class Produit implements Serializable{
 	@JoinColumn(name="cat_id", referencedColumnName="id_cat")
 	private Categorie categorie;
 	
+	@OneToMany(mappedBy="id_lc")
+	private List<LigneCommande> listeLigneCo;
 	
 	
 	/**Declaration des Attributs*/
@@ -112,7 +115,12 @@ public class Produit implements Serializable{
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-
+	public List<LigneCommande> getListeLigneCo() {
+		return listeLigneCo;
+	}
+	public void setListeLigneCo(List<LigneCommande> listeLigneCo) {
+		this.listeLigneCo = listeLigneCo;
+	}
 	
 	/** Declaration de la methode toString*/
 	@Override
