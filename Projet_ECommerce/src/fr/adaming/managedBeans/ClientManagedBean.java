@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-
 import fr.adaming.Service.IClientService;
 import fr.adaming.model.Client;
 
@@ -65,26 +64,42 @@ public class ClientManagedBean implements Serializable {
 			return "affCl";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'enregistrement du client a echoué"));
-			
-			return "enregistrement";
+
+			return "ajoutCl";
 		}
 
 	}
-	public String modifClient(){
+
+	public String modifClient() {
 		Client clModif = clService.modifClient(client);
-		
+
 		if (clModif.getIdClient() != 0) {
 			/** Recuperer la liste */
 			List<Client> listeCl = clService.getAllClient();
 
 			return "affCl";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'enregistrement du client a echoué"));
-			
-			return "enregistrement";
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La modification du client a echoué"));
+
+			return "modifCl";
 		}
-	
+
 	}
-	
+
+	public String supprClient() {
+		Client clSup = clService.supprClient(client);
+
+		if (clSup.getIdClient() != 0) {
+			/** Recuperer la liste */
+			List<Client> listeCl = clService.getAllClient();
+
+			return "affCl";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La suppression du client a echoué"));
+
+			return "supCl";
+		}
+
+	}
 
 }

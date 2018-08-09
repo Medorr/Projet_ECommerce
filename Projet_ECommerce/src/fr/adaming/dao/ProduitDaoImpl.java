@@ -20,7 +20,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	@Override
 	public int ajoutProduit(Produit pr) {
 		em.persist(pr);
-		if (em.find(Produit.class, pr.getId()) != null) {
+		if (em.find(Produit.class, pr.getIdProduit()) != null) {
 			return 1;
 		} else {
 			return 0;

@@ -44,5 +44,26 @@ public class ClientDaoImpl implements IClientDao{
 	
 		return query.getResultList();
 	}
+	/**
+	* Methode rechercher un client par id
+	 */
+	@Override
+	public Client getClientById(Client cl) {
+		return em.find(Client.class, cl.getIdClient())
+ ;
+	}
+	/**
+	* Methode rechercher les clients par id ou par nom
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Client> getClientByNomOrId(Client cl) {
+		/**Req JPQL*/
+		String req= "SELECT cl FROM Client as cl WHERE cl.nom=:pNom OR cl.idClient=:pIdClient";
+		/**Query*/
+		Query query = em.createQuery(req);
+
+		return query.getResultList();
+	}
 
 }

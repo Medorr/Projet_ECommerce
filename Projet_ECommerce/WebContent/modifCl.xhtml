@@ -6,18 +6,19 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 
-	<title>Enregistrement Client</title>
+	<title>Modifier Client</title>
 </h:head>
 <h:body>
 <h:form>
 		<h:panelGrid columns="2">
+			ID client: <h:inputText value="#{clMB.client.idClient}"></h:inputText>
 			Nom: <h:inputText value="#{clMB.client.nomClient}"></h:inputText>
 			Adresse: <h:inputText value="#{clMB.client.adresse}"></h:inputText>
 			Mail: <h:inputText value="#{clMB.client.email}"></h:inputText>
 			Telephone: <h:inputText value="#{clMB.client.tel}"></h:inputText>
 
-			<h:commandButton value="Enregistrer"
-				action="#{clMB.ajoutClient}" />
+			<h:commandButton value="Modifier"
+				action="#{clMB.modifClient}" />
 		</h:panelGrid>
 </h:form>
 
