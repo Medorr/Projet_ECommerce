@@ -40,19 +40,26 @@ public class CategorieServiceImpl implements ICategorieService{
 
 	@Override
 	public Categorie rechCategorie(Categorie cat) {
-		// TODO Auto-generated method stub
-		return null;
+		// 
+		return catDao.rechCategorie(cat);
 	}
 
 	@Override
 	public Categorie getCategorieById(Categorie cat) {
 		// instancier une categorie
 		Categorie catBD=catDao.getCategorieById(cat);
-		if(catBD!=null){
+		//if(catBD!=null){
 			return catBD;
-		}else{
-		return null;
-		}
+		//}else{
+		//return null;
+		//}
 	}
+
+	@Override
+	public Categorie getCategorieByNomOrId(Categorie cat) {
+		// TODO Auto-generated method stub
+		return catDao.getCategorieByNomOrId(cat);
+	}
+	
 
 }

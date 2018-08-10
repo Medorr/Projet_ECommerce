@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.OneToMany;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.UploadedFile;
@@ -27,7 +28,8 @@ public class CategorieManagedBean implements Serializable {
 
 	// les attributs
 	private Categorie categorie;
-	private Produit produit;
+	@OneToMany
+	private List<Produit> listProd;
 	HttpSession maSession;
 	private List<Categorie> listeCat;
 
@@ -66,12 +68,12 @@ public class CategorieManagedBean implements Serializable {
 		this.categorie = categorie;
 	}
 
-	public Produit getProduit() {
-		return produit;
+	public List<Produit> getListProd() {
+		return listProd;
 	}
 
-	public void setProduit(Produit produit) {
-		this.produit = produit;
+	public void setListProd(List<Produit> listProd) {
+		this.listProd = listProd;
 	}
 
 	public UploadedFile getFile() {
@@ -133,5 +135,43 @@ public class CategorieManagedBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la supression de Cat à échouer"));
 			return "supprCat";
 		}
+	}
+	// ****************************************************************************************************
+	public String rechCategorie(){
+		
+		//recuperer la cat dans la BD
+		Categorie catBD=catService.rechCategorie(this.categorie);
+		
+		if(catBD!=null){
+			//afficher la cat
+			this.categorie=catBD;
+			return "rechCat";
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La recherche de cat à échouer"));
+		}
+		return "rechCat";
+	}
+	// ****************************************************************************************************
+	public String rechCategorieById(){
+		//recuperer la cat dans la BD
+		Categorie catBD=catService.getCategorieById(this.categorie);
+		if (catBD!=null){
+			this.categorie=catBD;
+			return "rechCat";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la recherche By Id à échouer"));
+			return "rechCat";
+		}
+	}
+	// ****************************************************************************************************
+	public String rechCatByNomOrId(){
+		//Recuperer une categorie 
+		Categorie catBD=catService.getCategorieByNomOrId(categorie);
+		if(catBD!=null){
+			this.categorie=catBD;
+
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La recherche a échoué"));
+	}return "rechCat";
 	}
 }

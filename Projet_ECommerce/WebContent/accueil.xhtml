@@ -21,30 +21,38 @@
 
 <h1 style="background-color: red ; text-align: center " > La liste des categories</h1>
 
-<p:dataTable var="cat" value="#{catMB.listeCat}">
-    <p:column headerText="Id_categorie">
-        <h:outputText value="#{cat.id}" />
-    </p:column>
+<h:form id="form">
+    <p:growl id="msgs" showDetail="true" />
  
-    <p:column headerText="Nom_Categorie">
-        <h:outputText value="#{cat.nom}" />
-    </p:column>
- 
+    <p:dataTable id="listeCat" var="cat" value="#{catMB.listeCat}">
+        <f:facet name="header">
+            La liste des categories
+        </f:facet>
+        <p:column headerText="Id_Categorie">
+            <h:outputText value="#{cat.id}" />
+        </p:column>
+        <p:column headerText="Nom Categorie">
+            <h:outputText value="#{cat.nom}" />
+        </p:column>
+        
     <p:column headerText="Photo">
         <h:graphicImage value="#{cat.image}" style="width:100px;height:100px"/>
     </p:column>
+        
+        <p:column headerText="Description">
+            <h:outputText value="#{cat.description}" />
+        </p:column>
+
+        <p:column style="width:32px;text-align: center">
+        <h:form>
+             <h:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" value="afficher" title="View">
+                <f:setPropertyActionListener value="#{cat}" target="#{catMB.categorie.listeProduits}" />
+            </h:commandButton>
+            </h:form>
+        </p:column>
+
+    </p:dataTable>
  
-    <p:column headerText="Description">
-        <h:outputText value="#{cat.description}"/>
-    </p:column>
-    
-</p:dataTable>
-
-
-
-
-
-
-
+</h:form>
 </h:body>
 </html>

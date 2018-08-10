@@ -34,11 +34,7 @@ public class CategorieDaoImpl implements ICategorieDao{
 		for(Categorie cat:listeCatJPQL){
 			cat.setImage("data:image/png);base64," + Base64.encodeBase64String(cat.getPhoto()));
 		}
-
-
 		return queryList.getResultList();
-
-
 	}
 
 	@Override
@@ -94,8 +90,19 @@ public class CategorieDaoImpl implements ICategorieDao{
 
 	@Override
 	public Categorie rechCategorie(Categorie cat) {
-		// 
-		return null;
+		//catOut.setImage("data:image/png);base64," + Base64.encodeBase64String(catOut.getPhoto()));
+		
+		//Ma requete JPQL
+		String reqCatJPQL="Select cat from Categorie as cat WHERE cat.nom=:pNOm";
+		
+		//Creation du sous bus Query
+		Query queryCat=em.createQuery(reqCatJPQL);
+		
+		//Passage des params 
+		queryCat.setParameter("pNom", cat.getNom());
+		
+
+		return (Categorie) queryCat.getSingleResult();
 	}
 
 	@Override
@@ -108,7 +115,16 @@ public class CategorieDaoImpl implements ICategorieDao{
 		return catOut;
 	}
 
-
-
-
+	@Override
+	public Categorie getCategorieByNomOrId(Categorie cat) {
+		// Creation d'une requete JPQL
+		String reqCatJPQL="Select cat From Categorie as cat where cat.nom=:pNom OR cat.id=:pId";
+		//Creation du sous bus le query
+		Query queryCat=em.createQuery(reqCatJPQL);
+		//Passage des paras
+		queryCat.setParameter("pNom", cat.getNom());
+		queryCat.setParameter("pId", cat.getId());
+		
+		return (Categorie) queryCat.getSingleResult();
+	}
 }

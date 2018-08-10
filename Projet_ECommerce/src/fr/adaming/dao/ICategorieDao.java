@@ -17,5 +17,7 @@ public interface ICategorieDao {
 	public int supprCategorie(Categorie cat);
 	public Categorie rechCategorie(Categorie cat);
 	
+	public Categorie getCategorieByNomOrId(Categorie cat);
+	
 
 }
