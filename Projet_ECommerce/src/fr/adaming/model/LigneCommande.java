@@ -21,7 +21,7 @@ public class LigneCommande implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_lc")
 	private int id;
-	private int quantité;
+	private int quantite;
 	private double prix;
 	
 	/** Transformation association UML en JAVA*/
@@ -43,9 +43,9 @@ public class LigneCommande implements Serializable {
 	 * @param quantité
 	 * @param prix
 	 */
-	public LigneCommande(int quantité, double prix) {
+	public LigneCommande(int quantite, double prix) {
 		super();
-		this.quantité = quantité;
+		this.quantite = quantite;
 		this.prix = prix;
 	}
 	/**
@@ -53,24 +53,24 @@ public class LigneCommande implements Serializable {
 	 * @param quantité
 	 * @param prix
 	 */
-	public LigneCommande(int id, int quantité, double prix) {
+	public LigneCommande(int id, int quantite, double prix) {
 		super();
 		this.id = id;
-		this.quantité = quantité;
+		this.quantite = quantite;
 		this.prix = prix;
 	}
 	/** 
 	Getters et setters
 	 * @return the quantité
 	 */
-	public int getQuantité() {
-		return quantité;
+	public int getQuantite() {
+		return quantite;
 	}
 	/**
 	 * @param quantité the quantité to set
 	 */
-	public void setQuantité(int quantité) {
-		this.quantité = quantité;
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
 	}
 	/**
 	 * @return the id
@@ -127,7 +127,7 @@ public class LigneCommande implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "LigneCommande [quantité=" + quantité + ", prix=" + prix + "]";
+		return "LigneCommande [quantite=" + quantite + ", prix=" + prix + "]";
 	}
 	
 	

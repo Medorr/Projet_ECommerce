@@ -19,16 +19,6 @@ import javax.persistence.Transient;
 @Table(name = "produits")
 public class Produit implements Serializable {
 
-	/**
-	 * Transformation des associations UML en JAVA
-	 */
-	@ManyToOne
-	@JoinColumn(name = "cat_id", referencedColumnName = "id_cat")
-	private Categorie categorie;
-
-	@OneToMany(mappedBy = "produit")
-	private List<LigneCommande> listeLigneCo;
-
 	/** Declaration des Attributs */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +36,16 @@ public class Produit implements Serializable {
 
 	@Transient
 	private String image;
+	
+	/**
+	 * Transformation des associations UML en JAVA
+	 */
+	@ManyToOne
+	@JoinColumn(name = "cat_id", referencedColumnName = "id_cat")
+	private Categorie categorie;
+
+	@OneToMany(mappedBy = "produit")
+	private List<LigneCommande> listeLigneCo;
 
 	/** Declaration des Constructeurs */
 	public Produit() {

@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import org.apache.commons.codec.binary.Base64;
 import org.jboss.security.Base64Utils;
 
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
 @Stateful
@@ -33,7 +34,7 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public int modifProduit(Produit pr) {
-		String req = "UPDATE Produit pr SET pr.designation=:pDesign, pr.description=:pDescr, pr.prix=:pPrix,pr.Quantite=:pQuant, pr.photo=:pPhoto WHERE pr.id =:pId";
+		String req = "UPDATE Produit pr SET pr.designation=:pDesign, pr.description=:pDescr, pr.prix=:pPrix,pr.quantite=:pQuant, pr.photo=:pPhoto WHERE pr.id =:pId";
 		Query query = em.createQuery(req);
 		query.setParameter("pDesign", pr.getDesignation());
 		query.setParameter("pDescr", pr.getDescription());
@@ -78,6 +79,20 @@ public class ProduitDaoImpl implements IProduitDao {
 
 		return listeProduit;
 
+	}
+
+	@Override
+	public List<Produit> getProduitByIdCat(Categorie cat) {
+		String req = "SELECT pr FROM Produit pr WHERE pr.categorie.id=:pId";
+		Query queryListProduitCat = em.createQuery(req);
+		queryListProduitCat.setParameter("pId", cat.getId());
+		List<Produit> listeProduitCat = queryListProduitCat.getResultList();
+
+		for (Produit pr : listeProduitCat) {
+			pr.setImage("data:image/png);base64," + Base64.encodeBase64String(pr.getPhoto()));
+		}
+
+		return listeProduitCat;
 	}
 
 }

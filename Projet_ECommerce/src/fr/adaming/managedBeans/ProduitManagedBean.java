@@ -3,6 +3,7 @@ package fr.adaming.managedBeans;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -29,10 +30,16 @@ public class ProduitManagedBean implements Serializable {
 	private LigneCommande ligneCommande;
 
 	private UploadedFile file;
+	
+	@PostConstruct
+	public void init(){
+		listeProduit = prService.getAllProduit();
+	}
 
 	public ProduitManagedBean() {
 		super();
 		this.produit = new Produit();
+		this.categorie = new Categorie();
 	}
 
 	public Produit getProduit() {
@@ -77,7 +84,7 @@ public class ProduitManagedBean implements Serializable {
 
 	/** méthodes : */
 	public String ajoutProduit() {
-		
+		this.produit.setCategorie(this.categorie);
 		this.produit.setPhoto(file.getContents());
 		int prAjout = prService.ajoutProduit(this.produit);
 
@@ -115,6 +122,19 @@ public class ProduitManagedBean implements Serializable {
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La suppression a échoué !"));
 			return "supprProduit";
+		}
+		
+	}
+	
+	public String rechProduitByIdCat(){
+		List<Produit>prRechCat = prService.getProduitByIdCat(this.categorie);
+		
+		if(prRechCat != null){
+			listeProduit = prRechCat;
+			return "listeProduit";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ça a foiré !"));
+			return "accueil";
 		}
 		
 	}

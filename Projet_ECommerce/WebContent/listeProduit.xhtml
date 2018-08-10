@@ -40,7 +40,18 @@
 		<p:column headerText="Photo">
 			<h:graphicImage value="#{pr.image}" style="width:100px;height:100px" />
 		</p:column>
-
+	
+		<p:column headerText="Catégorie">
+			<h:outputText value="#{pr.categorie.id}" />
+		</p:column>
+		
+		<p:column headerText="Action">
+			<h:form>
+				<h:inputText value="#{pr.selectionne}" />
+			</h:form>
+		</p:column>
+		
+		
 	</p:dataTable>
 
 
