@@ -19,7 +19,7 @@ import fr.adaming.model.Client;
 @ManagedBean(name = "adMB")
 @RequestScoped
 public class AdminManagedBean {
-	
+
 	/**
 	 * Transformation de l'association UML en JAVA et injection dependance
 	 */
@@ -31,7 +31,6 @@ public class AdminManagedBean {
 	 */
 	private Admin admin;
 	private List<Client> liste;
-	
 
 	/**
 	 * Constructeur vide
@@ -41,7 +40,7 @@ public class AdminManagedBean {
 		this.admin = new Admin();
 	}
 
-	/**Getters et setters*/
+	/** Getters et setters */
 	/**
 	 * @return the admin
 	 */
@@ -50,33 +49,35 @@ public class AdminManagedBean {
 	}
 
 	/**
-	 * @param admin the admin to set
+	 * @param admin
+	 *            the admin to set
 	 */
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
-	
-	
+
 	/**
 	 * Methodes
 	 */
-	/** Connection de l'administrateur*/
-	public String seConnecter(){
+	/** Connection de l'administrateur */
+	public String seConnecter() {
 		Admin connectAd = adService.isExist(admin);
-		
-		if(connectAd != null){
-			
-			/**Ajouter l'admin connecté dans la session*/
+
+		if (connectAd != null) {
+
+			/** Ajouter l'admin connecté dans la session */
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adSession", connectAd);
-			
+
 			return "accueil";
-		}else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Attention!!!Login ou Password erroné"));
-		return "login";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Attention!!!Login ou Password erroné"));
+			return "login";
 		}
-		
+
 	}
-	/**Deconnexion de l'admnistrateur*/
+
+	/** Deconnexion de l'admnistrateur */
 	public String logout() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext ec = context.getExternalContext();
