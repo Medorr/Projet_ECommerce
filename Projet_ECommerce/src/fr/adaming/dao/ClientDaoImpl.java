@@ -26,7 +26,6 @@ public class ClientDaoImpl implements IClientDao {
 	/** Methode pour modifier client */
 	@Override
 	public Client modifClient(Client cl) {
-
 		em.merge(cl);
 		return cl;
 
@@ -68,15 +67,37 @@ public class ClientDaoImpl implements IClientDao {
 	/**
 	 * Methode rechercher les clients  par nom
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Client getClientByNom(Client cl) {
-		/** Req JPQL */
-		String req = "SELECT cl FROM Client as cl WHERE cl.nom=:pNom";
-		/** Query */
+		/**Req JPQL*/
+		String req="SELECT cl FROM Client as cl WHERE cl.nomClient=:pNomClient";
+		
+		/**Query*/
 		Query query = em.createQuery(req);
-
+		
+		/**passage des params*/
+		query.setParameter("pNomClient", cl.getNomClient());
+		
 		return (Client) query.getSingleResult();
+		
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Client> getClientByNomOrId(Client cl) {
+		/**req JPQL*/
+		String req = "SELECT cli FROM Client as cli WHERE cli.nomClient=:pNomClient OR cli.idClient=:pIdClient";
+		/**Query*/
+		Query query = em.createQuery(req);
+		/**passage des params*/
+		query.setParameter("pNomClient", cl.getNomClient());
+		query.setParameter("pIdClient", cl.getIdClient());
+		
+		return query.getResultList();
+	}
+
+
+	
+	
 
 }

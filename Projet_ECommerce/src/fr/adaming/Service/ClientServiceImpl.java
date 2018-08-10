@@ -49,4 +49,9 @@ public class ClientServiceImpl implements IClientService{
 		return clDao.getClientByNom(cl);
 	}
 
+	@Override
+	public List<Client> getClientByNomOrId(Client cl) {
+		return clDao.getClientByNomOrId(cl);
+	}
+
 }

@@ -37,5 +37,9 @@ public interface IClientService {
 	* Methode rechercher les clients par nom 
 	 */
 	public Client getClientByNom(Client cl);
-
+	
+	/**
+	* Methode rechercher les clients par nom  ou id
+	 */
+	public List<Client> getClientByNomOrId(Client cl);
 }

@@ -3,12 +3,16 @@ package fr.adaming.managedBeans;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import org.primefaces.component.messages.Messages;
 
 import fr.adaming.Service.IClientService;
 import fr.adaming.model.Client;
@@ -26,6 +30,10 @@ public class ClientManagedBean implements Serializable {
 	 * Declaration des attributs
 	 */
 	private Client client;
+	private HttpSession maSession;
+	private boolean indice;
+	private List<Client> clListe;
+	
 
 	/**
 	 * Declaration du constructeur vide
@@ -35,6 +43,13 @@ public class ClientManagedBean implements Serializable {
 		this.client = new Client();
 	}
 
+	/** Ajout de la methode intit*/
+	@PostConstruct
+	public void init(){
+		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		this.indice = false;
+		
+	}
 	/**
 	 * Getters et setters
 	 */
@@ -52,8 +67,37 @@ public class ClientManagedBean implements Serializable {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+	/**
+	 * @return the indice
+	 */
+	public boolean isIndice() {
+		return indice;
+	}
+	
+
+	/**
+	 * @return the clListe
+	 */
+	public List<Client> getClListe() {
+		return clListe;
+	}
+
+	/**
+	 * @param clListe the clListe to set
+	 */
+	public void setClListe(List<Client> clListe) {
+		this.clListe = clListe;
+	}
+
+	/**
+	 * @param indice the indice to set
+	 */
+	public void setIndice(boolean indice) {
+		this.indice = indice;
+	}
 
 	/** Methodes du client */
+	
 	public String ajoutClient() {
 		Client clEnr = clService.enregistrerClient(client);
 
@@ -101,8 +145,35 @@ public class ClientManagedBean implements Serializable {
 		}
 
 	}
+	public String rechIdClient(){
+		Client clRechId = clService.getClientById(client);
+		
+		if(clRechId != null){
+		this.client = clRechId;
+		this.indice = true;
+	
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le client recherché n'existe pas"));
+		}
+		
+		return "rechClid";
+	}
 
-
+	public String rechIdNom(){
+		List<Client> listRech = clService.getClientByNomOrId(client);
+		
+		if(listRech != null){
+			this.clListe = listRech;
+			this.indice = true;
+			
+			
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le ou les clients recherchés sont introuvables"));
+			
+		}
+		return "rechCl";
+		
+	}
 		
 	}
 
