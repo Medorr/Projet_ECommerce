@@ -48,6 +48,7 @@ public class ClientManagedBean implements Serializable {
 	public void init(){
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.indice = false;
+		this.clListe= clService.getAllClient();
 		
 	}
 	/**
@@ -144,19 +145,6 @@ public class ClientManagedBean implements Serializable {
 			return "supprCl";
 		}
 
-	}
-	public String rechIdClient(){
-		Client clRechId = clService.getClientById(client);
-		
-		if(clRechId != null){
-		this.client = clRechId;
-		this.indice = true;
-	
-		}else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le client recherché n'existe pas"));
-		}
-		
-		return "rechClid";
 	}
 
 	public String rechIdNom(){

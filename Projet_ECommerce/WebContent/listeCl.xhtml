@@ -9,7 +9,7 @@
 <title>Afficher liste clients</title>
 </h:head>
 <h:body>
-<p:dataTable var="a" value="#{clMB.client}" stickyHeader="true">
+<p:dataTable var="a" value="#{clMB.clListe}" stickyHeader="true">
     <p:column headerText="Id client">
         <h:outputText value="#{a.idClient}" />
     </p:column>
@@ -26,5 +26,6 @@
         <h:outputText value="#{a.tel}" />
     </p:column>
 </p:dataTable>
+
 </h:body>
 </html>

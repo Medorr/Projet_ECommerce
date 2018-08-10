@@ -1,5 +1,6 @@
 package fr.adaming.dao;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -7,6 +8,7 @@ import javax.persistence.Query;
 
 import fr.adaming.model.Admin;
 
+@Stateless
 public class AdminDaoImpl implements IAdminDao {
 
 	/**
