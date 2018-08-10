@@ -53,41 +53,54 @@ public class CategorieDaoImpl implements ICategorieDao{
 
 	@Override
 	public int modifCategorie(Categorie cat) {
-		// je recupere une Categorie 
-		Categorie catBD=em.find(Categorie.class, cat);
-		//je le parsiste dans la BD
-		em.persist(catBD);
-		if(em.find(Categorie.class, cat)!=null){
-			return 1;
-		}else{
 		
-		return 0;
-		}
+		String reqModif="UPDATE Categorie cat SET cat.nom=:pNom, cat.photo=:pPhoto, cat.description=:pDescription WHERE cat.id=:pId";
+		
+		// Creation du query 
+		Query queryModif=em.createQuery(reqModif);
+		
+		queryModif.setParameter("pNom", cat.getNom());
+		queryModif.setParameter("pPhoto", cat.getPhoto());
+		queryModif.setParameter("pDescription", cat.getDescription());
+		queryModif.setParameter("pId", cat.getId());
+//		// je recupere une Categorie 
+//		Categorie catBD=em.find(Categorie.class, cat);
+//		//je le parsiste dans la BD
+//		em.persist(catBD);
+//		if(em.find(Categorie.class, cat)!=null){
+//			return 1;
+//		}else{
+		
+		return queryModif.executeUpdate();
+		
 	}
 
 	@Override
 	public int supprCategorie(Categorie cat) {
 	//recuperer une categorie 
-		Categorie catBD=em.find(Categorie.class, cat);
-		//je le parsiste
-		em.persist(catBD);
+
+		//je la parsiste
+		cat=em.merge(cat);
+		em.remove(cat);
+		Categorie catBD=em.find(Categorie.class, cat.getId());
 		
-		if(em.find(Categorie.class, catBD)!=null){
+		if(catBD!=null){
+			return 0;
 			
+		}else{		
+		return 1;
 		}
-		
-		return 0;
 	}
 
 	@Override
 	public Categorie rechCategorie(Categorie cat) {
-		// TODO Auto-generated method stub
+		// 
 		return null;
 	}
 
 	@Override
 	public Categorie getCategorieById(Categorie cat) {
-
+		//Je recupere une cat dans la BD
 		Categorie catOut=em.find(Categorie.class, cat.getId());
 		
 		catOut.setImage("data:image/png);base64," + Base64.encodeBase64String(catOut.getPhoto()));

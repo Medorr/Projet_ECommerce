@@ -103,5 +103,35 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
-
+	// ****************************************************************************************************
+	public String modifCategorie(){
+		
+		this.categorie.setPhoto(file.getContents());
+		// Recuperer une cat
+		int catBD=catService.modifCategorie(this.categorie);
+		
+		if(catBD!=0){
+			//recuperer la liste des cat
+			listeCat=catService.getAllCategorie();
+			return "accueil";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new  FacesMessage("Desolé, la modif à échouer"));
+			return "modifCat";
+		}
+	}
+	// ****************************************************************************************************
+	
+	public String supprCategorie(){
+		
+		//Recuper la cat dans BD
+		int catBD=catService.supprCategorie(this.categorie);
+		if(catBD!=0){
+			//recuperer la nouvelle liste
+			listeCat=catService.getAllCategorie();
+			return "accueil";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la supression de Cat à échouer"));
+			return "supprCat";
+		}
+	}
 }

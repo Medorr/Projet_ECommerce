@@ -29,13 +29,13 @@ public class CategorieServiceImpl implements ICategorieService{
 	@Override
 	public int modifCategorie(Categorie cat) {
 		// TODO Auto-generated method stub
-		return 0;
+		return catDao.modifCategorie(cat);
 	}
 
 	@Override
 	public int supprCategorie(Categorie cat) {
 		// TODO Auto-generated method stub
-		return 0;
+		return catDao.supprCategorie(cat);
 	}
 
 	@Override

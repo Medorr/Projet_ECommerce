@@ -7,11 +7,10 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>accueil Facelet</title>
+	<title>Suppr Categorie Facelet</title>
 </h:head>
 
 <h:body>
-
 <h:form>
 <p:breadCrumb>
     <p:menuitem value="Accueil" url="accueil.xhtml" />
@@ -21,25 +20,19 @@
     <p:menuitem value="RechCat" url="rechCat.xhtml" />
 </p:breadCrumb>
 </h:form>
-
-	<h1 style="background-color: red; text-align: center">Ajout de
-		categories</h1>
+	<h1 style="background-color: red; text-align: center">Suppr de categories</h1>
 
 
-	<h:form enctype="multipart/form-data">
+	<h:form>
 		<h:panelGrid columns="2">
-			Nom Categorie: <h:inputText value="#{catMB.categorie.nom}"></h:inputText>
-			Description: <h:inputText value="#{catMB.categorie.description}"></h:inputText>
-			Photo: <p:fileUpload value="#{catMB.file}" mode="simple" skinSimple="true" />
+		
+			Id Categorie: <h:inputText value="#{catMB.categorie.id}"></h:inputText>
 
-
-			<h:commandButton value="Ajout Categorie" action="#{catMB.addCategorie}" />
+			<h:commandButton value="Suppr Categorie" action="#{catMB.supprCategorie}" />
 		</h:panelGrid>
 	</h:form>
 
-	<h1 style="color: crimson; text-align: center">
-		<h:messages />
-	</h1>
+	<h1 style="color: crimson; text-align: center"><h:messages /></h1>
 
 
 
