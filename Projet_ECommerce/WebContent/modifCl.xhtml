@@ -11,13 +11,13 @@
 <h:body>
 <h:form>
 		<h:panelGrid columns="2">
-			ID client: <h:inputText value="#{clMB.client.idClient}"></h:inputText>
-			Nom: <h:inputText value="#{clMB.client.nomClient}"></h:inputText>
-			Adresse: <h:inputText value="#{clMB.client.adresse}"></h:inputText>
-			Mail: <h:inputText value="#{clMB.client.email}"></h:inputText>
-			Telephone: <h:inputText value="#{clMB.client.tel}"></h:inputText>
+			ID client: <p:inputText value="#{clMB.client.idClient}"></p:inputText>
+			Nom: <p:inputText value="#{clMB.client.nomClient}"></p:inputText>
+			Adresse: <p:inputText value="#{clMB.client.adresse}"></p:inputText>
+			Mail: <p:inputText value="#{clMB.client.email}"></p:inputText>
+			Telephone: <p:inputText value="#{clMB.client.tel}"></p:inputText>
 
-			<h:commandButton value="Modifier"
+			<p:commandButton value="Modifier"
 				action="#{clMB.modifClient}" />
 		</h:panelGrid>
 </h:form>
