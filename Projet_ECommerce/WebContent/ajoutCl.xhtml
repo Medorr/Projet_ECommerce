@@ -12,12 +12,12 @@
 <h:body>
 <h:form>
 		<h:panelGrid columns="2">
-			Nom: <h:inputText value="#{clMB.client.nomClient}"></h:inputText>
-			Adresse: <h:inputText value="#{clMB.client.adresse}"></h:inputText>
-			Mail: <h:inputText value="#{clMB.client.email}"></h:inputText>
-			Telephone: <h:inputText value="#{clMB.client.tel}"></h:inputText>
+			Nom: <p:inputText value="#{clMB.client.nomClient}"></p:inputText>
+			Adresse: <p:inputText value="#{clMB.client.adresse}"></p:inputText>
+			Mail: <p:inputText value="#{clMB.client.email}"></p:inputText>
+			Telephone: <p:inputText value="#{clMB.client.tel}"></p:inputText>
 
-			<h:commandButton value="Enregistrer"
+			<p:commandButton value="Enregistrer"
 				action="#{clMB.ajoutClient}" />
 		</h:panelGrid>
 </h:form>

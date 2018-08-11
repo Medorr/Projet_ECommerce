@@ -13,24 +13,30 @@
 <ui:insert>
 	<ui:include src="templates/menuBarAdmin.xhtml"></ui:include>
 </ui:insert>
+<hr/>
 
-<p:dataTable var="a" value="#{clMB.clListe}" stickyHeader="true">
-    <p:column headerText="Id client">
+<h:form>
+<p:dataTable var="a" value="#{clMB.clListe}" style="margin-bottom:40px; margin-right:40px; margin-left:40px; margin-top:40px" update="@all">
+<f:facet name="header">
+           Liste des clients
+        </f:facet>
+        
+   <p:column headerText="Id client" filterBy="#{a.idClient}">
         <h:outputText value="#{a.idClient}" />
     </p:column>
-    <p:column headerText="Nom client">
+    <p:column headerText="Nom client" filterBy="#{a.nomClient}">
         <h:outputText value="#{a.nomClient}" />
     </p:column>
-    <p:column headerText="Adresse">
+    <p:column headerText="Adresse" filterBy="#{a.adresse}">
         <h:outputText value="#{a.adresse}" />
     </p:column>
-    <p:column headerText="Mail">
+    <p:column headerText="Mail" filterBy="#{a.email}">
         <h:outputText value="#{a.email}" />
     </p:column>
-     <p:column headerText="Telephone">
+     <p:column headerText="Telephone" filterBy="#{a.tel}">
         <h:outputText value="#{a.tel}" />
     </p:column>
 </p:dataTable>
-
+</h:form>
 </h:body>
 </html>
