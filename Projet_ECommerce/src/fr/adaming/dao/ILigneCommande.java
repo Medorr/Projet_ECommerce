@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 
 @Local
@@ -13,5 +14,7 @@ public interface ILigneCommande {
 	public int modifLigneCommande(LigneCommande lc);
 	public int supprLigneCommande(LigneCommande lc);
 	public List<LigneCommande> getAllLigneCommande();
+	
+	public List<LigneCommande> getListeLigneCommandeByComId(Commande com);
 
 }

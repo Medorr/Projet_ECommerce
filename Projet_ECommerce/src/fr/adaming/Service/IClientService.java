@@ -46,9 +46,5 @@ public interface IClientService {
 	 */
 	public List<Client> getClientByNomOrId(Client cl);
 	
-	/**
-	* Methode envoyer un mail au client
-	 */
-
-	void sendMail(Client cl);
+	
 }

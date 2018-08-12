@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import fr.adaming.Service.ICommandeService;
 import fr.adaming.Service.IProduitService;
 import fr.adaming.dao.ILigneCommande;
+import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
@@ -121,16 +122,18 @@ public class PanierManagedBean implements Serializable{
 		return "panier";
 	}
 	
-	/** Reprendre à partir d'ici --> faire persister les commandes et les lignes de commande */
 	public String passerCommande(){
 		Date date = new Date();
 		this.commande = new Commande(date);
+		this.commande.setClient((Client) maSession.getAttribute("clSession"));
 		comService.ajouterCommande(this.commande);
+
 		
 		for (LigneCommande lc : this.panier.getListeLignesCommande()){
 			lc.setCommande(commande);
 			lcService.ajoutLigneCommande(lc);
 		}
+		comService.sendMail(commande);
 		return "confirmationCommande";
 	}
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 @Local
 public interface ICommandeService {
@@ -32,5 +33,10 @@ public interface ICommandeService {
 	* Methode rechercher un client par id
 	 */
 	public Commande getCommandeById(Commande com);
+	
+	/**
+	* Methode envoyer un mail au client
+	 */
+	void sendMail(Commande com);
 	
 }

@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.codec.binary.Base64;
 
+import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Produit;
 
@@ -57,5 +58,17 @@ public class LigneCommandeDaoImpl implements ILigneCommande{
 		
 		return listeLigneCommande;
 	}
+	
+	@Override
+	public List<LigneCommande> getListeLigneCommandeByComId(Commande com) {
+		String req = "SELECT lc FROM LigneCommande lc WHERE co_id=:pId";
+		Query queryListLigneCommande = em.createQuery(req);
+		queryListLigneCommande.setParameter("pId", com.getIdCommande());
+		List<LigneCommande> listeLigneCommande = queryListLigneCommande.getResultList();
+		
+		return listeLigneCommande;
+	}
+	
+	
 
 }

@@ -105,8 +105,8 @@ public class ClientManagedBean implements Serializable {
 	
 	public String ajoutClient() {
 		Client clEnr = clService.enregistrerClient(client);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clSession", clEnr);
 		
-		clService.sendMail(clEnr);
 
 		if (clEnr.getIdClient() != 0) {
 			/** Recuperer la liste */
