@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.Local;
 
 import fr.adaming.model.Client;
+import fr.adaming.model.Commande;
+import fr.adaming.model.LigneCommande;
 @Local
 public interface IClientService {
 	
@@ -46,5 +48,5 @@ public interface IClientService {
 	/**
 	* Methode envoyer un mail au client
 	 */
-	public void sendMail(Client cl);
+	void sendMail(Client cl);
 }

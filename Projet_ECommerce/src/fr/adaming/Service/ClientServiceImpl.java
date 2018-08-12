@@ -12,6 +12,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import fr.adaming.dao.IClientDao;
 import fr.adaming.model.Client;
+import fr.adaming.model.Commande;
+import fr.adaming.model.LigneCommande;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -23,6 +26,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
+
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -78,12 +82,12 @@ public class ClientServiceImpl implements IClientService {
 
 	@Override
 	public void sendMail(Client cl) {
-		
-		//mon compte gmail (pour recevoir les messages)
+
+		// mon compte gmail (pour recevoir les messages)
 		final String username = "bauchemin.c@gmail.com";
 		final String password = "claire2208";
 
-		//les propriétées 
+		// les propriétées
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -110,64 +114,69 @@ public class ClientServiceImpl implements IClientService {
 
 			// Set Subject: header du message
 			message.setSubject("Mail facture");
-			
+
 			ByteArrayOutputStream outputStream = null;
-			
-			 // Partie 1: Le texte
-		    MimeBodyPart mbp1 = new MimeBodyPart();
-		    mbp1.setText("Cher(e) Client(e),"+ "\n\n Merci de votre confiance!" + "\n\n Vous trouverez ci-joint votre facture");
-	 
-		    //ecrire le pdf dans outputStream
-            outputStream = new ByteArrayOutputStream();
-            writePdf(outputStream, cl);
-            byte[] bytes = outputStream.toByteArray();
-             
-            //construire le pdf
-            DataSource dataSource = new ByteArrayDataSource(bytes, "application/pdf");
-            MimeBodyPart pdfbp = new MimeBodyPart();
-            pdfbp.setDataHandler(new DataHandler(dataSource));
-            pdfbp.setFileName("test.pdf");
-             
-		    // On regroupe les deux dans le message
-		    MimeMultipart mp = new MimeMultipart();
-		    mp.addBodyPart(mbp1);
-		    mp.addBodyPart(pdfbp);
-		    message.setContent(mp);
-		    
-			// on envoie le message 
+
+			// Partie 1: Le texte
+			MimeBodyPart mbp1 = new MimeBodyPart();
+			mbp1.setText("Cher(e) Client(e)," + "\n\n Merci de votre confiance!"
+					+ "\n\n Vous trouverez ci-joint votre facture"
+					+ "\n\n\n l'equipe Demba, Steven et Claire espère vous revoir bientôt sur notre site!");
+
+			// ecrire le pdf dans outputStream
+			outputStream = new ByteArrayOutputStream();
+			writePdf(outputStream, cl);
+			byte[] bytes = outputStream.toByteArray();
+
+			// construire le pdf
+			DataSource dataSource = new ByteArrayDataSource(bytes, "application/pdf");
+			MimeBodyPart pdfbp = new MimeBodyPart();
+			pdfbp.setDataHandler(new DataHandler(dataSource));
+			pdfbp.setFileName("test.pdf");
+
+			// On regroupe les deux dans le message
+			MimeMultipart mp = new MimeMultipart();
+			mp.addBodyPart(mbp1);
+			mp.addBodyPart(pdfbp);
+			message.setContent(mp);
+
+			// on envoie le message
 			Transport.send(message);
 
-			System.out.println("Sent message successfully....");//verifier si ca a reussi
+			System.out.println("Sent message successfully....");// verifier si
+																// ca a reussi
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
-			
+
 		}
 	}
-	 /**
-     * ecrire le pdf (using iText API)
-     */
-    public void writePdf(OutputStream outputStream, Client cl) throws Exception {
-        Document document = new Document();
-        PdfWriter.getInstance(document, outputStream);
-         
-        //ouvrir le document
-        document.open();
-         
-        //données du document
-        document.addTitle("Facture PDF");
-        document.addSubject("Testing email PDF");
-        document.addKeywords("iText, email");
-        document.addAuthor("Steven, Demba et Claire");
-        document.addCreator("Steven, Demba et Claire");
-         
-        //composition du pdf
-        Paragraph paragraph = new Paragraph();
-        paragraph.add(new Chunk("Cher(e) Mr(Mme) "+ cl.getNomClient() + ","+ "\n\n voici votre facture"));
-        document.add(paragraph);
-         
-        //fermer le document
-        document.close();
-    }
+
+	/**
+	 * ecrire le pdf (using iText API)
+	 */
+	public void writePdf(OutputStream outputStream, Client cl ) throws Exception {
+		Document document = new Document();
+		PdfWriter.getInstance(document, outputStream);
+
+		// ouvrir le document
+		document.open();
+
+		// données du document
+		document.addTitle("Facture PDF");
+		document.addSubject("Testing email PDF");
+		document.addKeywords("iText, email");
+		document.addAuthor("Steven, Demba et Claire");
+		document.addCreator("Steven, Demba et Claire");
+
+		// composition du pdf
+		Paragraph paragraph = new Paragraph();
+		paragraph.add(new Chunk("Cher(e) Mr(Mme) " + cl.getNomClient() + "," + "\n\n voici votre facture \n\n"));
+		document.add(paragraph);
+	
+		
+		// fermer le document
+		document.close();
+	}
 
 }

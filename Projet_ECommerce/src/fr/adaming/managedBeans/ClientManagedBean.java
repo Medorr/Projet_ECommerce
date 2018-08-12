@@ -16,6 +16,7 @@ import org.primefaces.component.messages.Messages;
 
 import fr.adaming.Service.IClientService;
 import fr.adaming.model.Client;
+import fr.adaming.model.Commande;
 
 @ManagedBean(name = "clMB")
 @RequestScoped
@@ -33,7 +34,6 @@ public class ClientManagedBean implements Serializable {
 	private HttpSession maSession;
 	private boolean indice;
 	private List<Client> clListe;
-	
 
 	/**
 	 * Declaration du constructeur vide
