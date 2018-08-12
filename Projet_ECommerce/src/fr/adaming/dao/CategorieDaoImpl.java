@@ -40,11 +40,11 @@ public class CategorieDaoImpl implements ICategorieDao{
 	@Override
 	public Categorie ajouterCategorie(Categorie cat) {
 		em.persist(cat);
-		//if(em.find(Categorie.class, cat)!=null){
+		if(em.find(Categorie.class, cat)!=null){
 			return cat;
-		//}else{
-			//return null;
-		//}
+		}else{
+			return null;
+		}
 	}
 
 	@Override

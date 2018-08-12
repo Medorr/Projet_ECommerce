@@ -11,13 +11,42 @@
 </h:head>
 <h:body>
 
-<p:breadCrumb>
-    <p:menuitem value="Accueil" url="accueil.xhtml" />
-    <p:menuitem value="AjoutCat" url="ajoutCat.xhtml" />
-    <p:menuitem value="ModifCat" url="modifCat.xhtml" />
-    <p:menuitem value="SuppCat" url="supprCat.xhtml" />
-    <p:menuitem value="RechCat" url="rechCat.xhtml" />
-</p:breadCrumb>
+<h:form>  
+    <p:growl id="messages"/>    
+ 	<p:menuitem value="Accueil" url="accueil.xhtml" icon="ui-icon-home" />
+    <p:menubar>
+    
+    	<p:menuitem value="AccueilSteven" url="accueilSteven.xhtml" icon="ui-icon-home" />
+     	<p:menuitem value="AccueilCat" url="accueil.xhtml" icon="ui-icon-home" />
+     	<p:menuitem value="AccueilCl" url="accueilCl.xhtml" icon="ui-icon-home" />
+     	
+     	    <p:submenu label="Clients" icon="ui-icon-document">
+            	<p:menuitem value="Liste des Clients" url="listeCl.xhtml" />
+            	<p:menuitem value="Ajouter" url="ajoutCl.xhtml" />
+            	<p:menuitem value="Modifier" url="modifCl.xhtml" />
+            	<p:menuitem value="Supprimer" url="supprCl.xhtml" />
+            	<p:menuitem value="Rechercher" url="rechCl.xhtml" />
+        	</p:submenu>  	
+     	
+        <p:submenu label="Categories" icon="ui-icon-document">
+            <p:menuitem value="Liste des categories" url="accueil.xhtml" />
+            <p:menuitem value="Ajouter" url="ajoutCat.xhtml" />
+            <p:menuitem value="Modifier" url="modifCat.xhtml" />
+            <p:menuitem value="Supprimer" url="supprCat.xhtml" />
+            <p:menuitem value="Rechercher" url="rechCat.xhtml" />
+        </p:submenu> 
+        
+        <p:submenu label="Produits" icon="ui-icon-document">
+           	<p:menuitem value="Liste des Produits" url="listeProduit.xhtml" />
+           	<p:menuitem value="Ajouter" url="ajoutProduit.xhtml" />
+           	<p:menuitem value="Modifier" url="modifProduit.xhtml" />
+           	<p:menuitem value="Supprimer" url="supprProduit.xhtml" />
+           	<p:menuitem value="Rechercher" url="rechProduit.xhtml" />
+        </p:submenu>       
+    </p:menubar>
+</h:form>
+
+
 
 <h1 style="background-color: red ; text-align: center " > La liste des categories</h1>
 
@@ -33,24 +62,23 @@
         </p:column>
         <p:column headerText="Nom Categorie">
             <h:outputText value="#{cat.nom}" />
-        </p:column>
-        
+        </p:column>        
     <p:column headerText="Photo">
         <h:graphicImage value="#{cat.image}" style="width:100px;height:100px"/>
-    </p:column>
-        
+    </p:column>        
         <p:column headerText="Description">
             <h:outputText value="#{cat.description}" />
+        </p:column>       
+        
+        <p:column>
+	        <h:form>
+				<h:commandButton value="Produits catégorie" action="#{prMB.rechProduitByIdCat}">
+		           <f:setPropertyActionListener value="#{cat}" target="#{prMB.categorie}" />
+		        </h:commandButton>
+	        </h:form>
         </p:column>
-
-        <p:column style="width:32px;text-align: center">
-        <h:form>
-             <h:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" value="afficher" title="View">
-                <f:setPropertyActionListener value="#{cat}" target="#{catMB.categorie.listeProduits}" />
-            </h:commandButton>
-            </h:form>
-        </p:column>
-
+        
+        
     </p:dataTable>
  
 </h:form>

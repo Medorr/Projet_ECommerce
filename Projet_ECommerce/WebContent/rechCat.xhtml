@@ -27,7 +27,7 @@
 		<h:panelGrid columns="2">		
 			Id Categorie: <h:inputText value="#{catMB.categorie.id}"></h:inputText>
 			Nom Categorie: <h:inputText value="#{catMB.categorie.nom}"></h:inputText>
-			<h:commandButton value="Recherche Categorie" action="#{catMB.rechCatByNomOrId}" />
+			<h:commandButton value="Recherche Categorie" action="#{catMB.rechCatByNomOrId}" ajax="false" />
 		</h:panelGrid>
 	</h:form>
 	

@@ -28,7 +28,7 @@ public class CategorieManagedBean implements Serializable {
 
 	// les attributs
 	private Categorie categorie;
-	@OneToMany
+
 	private List<Produit> listProd;
 	HttpSession maSession;
 	private List<Categorie> listeCat;
@@ -49,6 +49,7 @@ public class CategorieManagedBean implements Serializable {
 		// recuperer la session
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		listeCat = catService.getAllCategorie();
+
 	}
 
 	// Getters et setters pour categorie
@@ -92,7 +93,7 @@ public class CategorieManagedBean implements Serializable {
 		this.categorie.setPhoto(file.getContents());
 
 		// Recuperer une categorie depuis la BD
-		Categorie catAjout = catService.ajouterCategorie(categorie);
+		Categorie catAjout = catService.ajouterCategorie(this.categorie);
 
 		if (catAjout.getId() != 0) {
 			// recuperer la liste des categories

@@ -12,14 +12,39 @@
 
 <h:body>
 
-<h:form>
-<p:breadCrumb>
-    <p:menuitem value="Accueil" url="accueil.xhtml" />
-    <p:menuitem value="AjoutCat" url="ajoutCat.xhtml" />
-    <p:menuitem value="ModifCat" url="modifCat.xhtml" />
-    <p:menuitem value="SuppCat" url="supprCat.xhtml" />
-    <p:menuitem value="RechCat" url="rechCat.xhtml" />
-</p:breadCrumb>
+<h:form>  
+    <p:growl id="messages"/>    
+ 	<p:menuitem value="Accueil" url="accueil.xhtml" icon="ui-icon-home" />
+    <p:menubar>
+    
+    	<p:menuitem value="AccueilSteven" url="accueilSteven.xhtml" icon="ui-icon-home" />
+     	<p:menuitem value="AccueilCat" url="accueil.xhtml" icon="ui-icon-home" />
+     	<p:menuitem value="AccueilCl" url="accueilCl.xhtml" icon="ui-icon-home" />
+     	
+     	    <p:submenu label="Clients" icon="ui-icon-document">
+            	<p:menuitem value="Liste des Clients" url="listeCl.xhtml" />
+            	<p:menuitem value="Ajouter" url="ajoutCl.xhtml" />
+            	<p:menuitem value="Modifier" url="modifCl.xhtml" />
+            	<p:menuitem value="Supprimer" url="supprCl.xhtml" />
+            	<p:menuitem value="Rechercher" url="rechCl.xhtml" />
+        	</p:submenu>  	
+     	
+        <p:submenu label="Categories" icon="ui-icon-document">
+            <p:menuitem value="Liste des categories" url="accueil.xhtml" />
+            <p:menuitem value="Ajouter" url="ajoutCat.xhtml" />
+            <p:menuitem value="Modifier" url="modifCat.xhtml" />
+            <p:menuitem value="Supprimer" url="supprCat.xhtml" />
+            <p:menuitem value="Rechercher" url="rechCat.xhtml" />
+        </p:submenu> 
+        
+        <p:submenu label="Produits" icon="ui-icon-document">
+           	<p:menuitem value="Liste des Produits" url="listeProduit.xhtml" />
+           	<p:menuitem value="Ajouter" url="ajoutProduit.xhtml" />
+           	<p:menuitem value="Modifier" url="modifProduit.xhtml" />
+           	<p:menuitem value="Supprimer" url="supprProduit.xhtml" />
+           	<p:menuitem value="Rechercher" url="rechProduit.xhtml" />
+        </p:submenu>       
+    </p:menubar>
 </h:form>
 
 	<h1 style="background-color: red; text-align: center">Ajout de
