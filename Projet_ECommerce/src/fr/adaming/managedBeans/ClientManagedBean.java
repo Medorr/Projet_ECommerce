@@ -108,7 +108,7 @@ public class ClientManagedBean implements Serializable {
 			/** Recuperer la liste */
 			List<Client> listeCl = clService.getAllClient();
 
-			return "accueilCl";
+			return "paiement";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'enregistrement du client a echoué"));
 
