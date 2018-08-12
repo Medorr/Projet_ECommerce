@@ -1,7 +1,10 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -10,10 +13,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import fr.adaming.Service.ICommandeService;
 import fr.adaming.Service.IProduitService;
 import fr.adaming.dao.ILigneCommande;
+import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
+import sun.security.jca.GetInstance;
 
 @ManagedBean(name = "panMB")
 @RequestScoped
@@ -25,12 +31,16 @@ public class PanierManagedBean implements Serializable{
 	private HttpSession maSession;
 	private Double prixTotal = 0.0;
 	private int nombreArticles;
+	private Commande commande;
 	
 	@EJB
 	private IProduitService prService;
 	
 	@EJB
 	private ILigneCommande lcService;
+	
+	@EJB
+	private ICommandeService comService;
 	
 	@PostConstruct
 	public void init(){
@@ -41,6 +51,7 @@ public class PanierManagedBean implements Serializable{
 				prixTotal += lc.getPrix();
 			}
 			this.nombreArticles=this.panier.getListeLignesCommande().size();
+			this.commande=new Commande();
 		}
 		
 		
@@ -93,6 +104,14 @@ public class PanierManagedBean implements Serializable{
 		this.nombreArticles = nombreArticles;
 	}
 
+	public Commande getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
+
 	/** méthodes : */
 	public String ajoutArticle() {
 		this.article.setPrix(this.article.getProduit().getPrix()*this.article.getQuantite());
@@ -103,11 +122,16 @@ public class PanierManagedBean implements Serializable{
 	}
 	
 	/** Reprendre à partir d'ici --> faire persister les commandes et les lignes de commande */
-	public String commande(){
+	public String passerCommande(){
+		Date date = new Date();
+		this.commande = new Commande(date);
+		comService.ajouterCommande(this.commande);
+		
 		for (LigneCommande lc : this.panier.getListeLignesCommande()){
+			lc.setCommande(commande);
 			lcService.ajoutLigneCommande(lc);
 		}
-		return null;
+		return "confirmationCommande";
 	}
 	
 
