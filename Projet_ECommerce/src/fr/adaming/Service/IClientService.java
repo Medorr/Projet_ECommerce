@@ -50,5 +50,5 @@ public interface IClientService {
 	* Methode envoyer un mail au client
 	 */
 
-	void sendMail(Client cl, LigneCommande lc);
+	void sendMail(Client cl);
 }

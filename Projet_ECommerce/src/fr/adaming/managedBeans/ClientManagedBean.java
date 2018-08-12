@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.messages.Messages;
 
 import fr.adaming.Service.IClientService;
+import fr.adaming.Service.ICommandeService;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
@@ -35,7 +36,7 @@ public class ClientManagedBean implements Serializable {
 	private HttpSession maSession;
 	private boolean indice;
 	private List<Client> clListe;
-	private LigneCommande lc;
+
 
 	/**
 	 * Declaration du constructeur vide
@@ -51,6 +52,7 @@ public class ClientManagedBean implements Serializable {
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.indice = false;
 		this.clListe= clService.getAllClient();
+
 		
 	}
 	/**
@@ -104,7 +106,7 @@ public class ClientManagedBean implements Serializable {
 	public String ajoutClient() {
 		Client clEnr = clService.enregistrerClient(client);
 		
-		clService.sendMail(clEnr, lc);
+		clService.sendMail(clEnr);
 
 		if (clEnr.getIdClient() != 0) {
 			/** Recuperer la liste */

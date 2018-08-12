@@ -84,7 +84,7 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	@Override
-	public void sendMail(Client cl, LigneCommande lc) {
+	public void sendMail(Client cl) {
 
 		// mon compte gmail (pour recevoir les messages)
 		final String username = "bauchemin.c@gmail.com";
@@ -128,7 +128,7 @@ public class ClientServiceImpl implements IClientService {
 
 			// ecrire le pdf dans outputStream
 			outputStream = new ByteArrayOutputStream();
-			writePdf(outputStream, cl, lc);
+			writePdf(outputStream, cl);
 			byte[] bytes = outputStream.toByteArray();
 
 			// construire le pdf
@@ -158,7 +158,7 @@ public class ClientServiceImpl implements IClientService {
 	/**
 	 * ecrire le pdf (using iText API)
 	 */
-	public void writePdf(OutputStream outputStream, Client cl, LigneCommande lc ) throws Exception {
+	public void writePdf(OutputStream outputStream, Client cl ) throws Exception {
 		Document document = new Document();
 		PdfWriter.getInstance(document, outputStream);
 
@@ -177,9 +177,9 @@ public class ClientServiceImpl implements IClientService {
 		paragraph.add(new Chunk("Cher(e) Mr(Mme) " + cl.getNomClient() + "," + "\n voici votre facture \n\n"));
 		document.add(paragraph);
 		
-		Paragraph paragraph1 = new Paragraph();
-		paragraph.add(new Chunk("prix total: " + lc.getProduit().getPrix()*lc.getProduit().getQuantite()));
-		document.add(paragraph1);
+//		Paragraph paragraph1 = new Paragraph();
+//		paragraph.add(new Chunk("prix total: " + lc.getCommande()));
+//		document.add(paragraph1);
 		
 		
 		// fermer le document
