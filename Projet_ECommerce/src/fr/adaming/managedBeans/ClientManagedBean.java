@@ -17,6 +17,7 @@ import org.primefaces.component.messages.Messages;
 import fr.adaming.Service.IClientService;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
+import fr.adaming.model.LigneCommande;
 
 @ManagedBean(name = "clMB")
 @RequestScoped
@@ -34,6 +35,7 @@ public class ClientManagedBean implements Serializable {
 	private HttpSession maSession;
 	private boolean indice;
 	private List<Client> clListe;
+	private LigneCommande lc;
 
 	/**
 	 * Declaration du constructeur vide
@@ -102,7 +104,7 @@ public class ClientManagedBean implements Serializable {
 	public String ajoutClient() {
 		Client clEnr = clService.enregistrerClient(client);
 		
-		clService.sendMail(clEnr);
+		clService.sendMail(clEnr, lc);
 
 		if (clEnr.getIdClient() != 0) {
 			/** Recuperer la liste */

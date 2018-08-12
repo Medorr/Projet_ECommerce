@@ -11,6 +11,8 @@ import javax.activation.DataSource;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import fr.adaming.dao.IClientDao;
+import fr.adaming.dao.ICommandeDao;
+import fr.adaming.managedBeans.PanierManagedBean;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
@@ -41,6 +43,7 @@ public class ClientServiceImpl implements IClientService {
 	 */
 	@EJB
 	private IClientDao clDao;
+	
 
 	/**
 	 * Methodes de client
@@ -81,7 +84,7 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	@Override
-	public void sendMail(Client cl) {
+	public void sendMail(Client cl, LigneCommande lc) {
 
 		// mon compte gmail (pour recevoir les messages)
 		final String username = "bauchemin.c@gmail.com";
@@ -120,12 +123,12 @@ public class ClientServiceImpl implements IClientService {
 			// Partie 1: Le texte
 			MimeBodyPart mbp1 = new MimeBodyPart();
 			mbp1.setText("Cher(e) Client(e)," + "\n\n Merci de votre confiance!"
-					+ "\n\n Vous trouverez ci-joint votre facture"
+					+ "\n Vous trouverez ci-joint votre facture"
 					+ "\n\n\n l'equipe Demba, Steven et Claire espère vous revoir bientôt sur notre site!");
 
 			// ecrire le pdf dans outputStream
 			outputStream = new ByteArrayOutputStream();
-			writePdf(outputStream, cl);
+			writePdf(outputStream, cl, lc);
 			byte[] bytes = outputStream.toByteArray();
 
 			// construire le pdf
@@ -155,7 +158,7 @@ public class ClientServiceImpl implements IClientService {
 	/**
 	 * ecrire le pdf (using iText API)
 	 */
-	public void writePdf(OutputStream outputStream, Client cl ) throws Exception {
+	public void writePdf(OutputStream outputStream, Client cl, LigneCommande lc ) throws Exception {
 		Document document = new Document();
 		PdfWriter.getInstance(document, outputStream);
 
@@ -171,9 +174,13 @@ public class ClientServiceImpl implements IClientService {
 
 		// composition du pdf
 		Paragraph paragraph = new Paragraph();
-		paragraph.add(new Chunk("Cher(e) Mr(Mme) " + cl.getNomClient() + "," + "\n\n voici votre facture \n\n"));
+		paragraph.add(new Chunk("Cher(e) Mr(Mme) " + cl.getNomClient() + "," + "\n voici votre facture \n\n"));
 		document.add(paragraph);
-	
+		
+		Paragraph paragraph1 = new Paragraph();
+		paragraph.add(new Chunk("prix total: " + lc.getProduit().getPrix()*lc.getProduit().getQuantite()));
+		document.add(paragraph1);
+		
 		
 		// fermer le document
 		document.close();
