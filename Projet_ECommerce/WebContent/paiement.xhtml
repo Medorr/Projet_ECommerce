@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>paiement facelet</title>
+
+</h:head>
+<h:body>
+<ui:insert>
+	<ui:include src="templates/menuBar.xhtml"></ui:include>
+</ui:insert>
+
+	<h1 style="background-color: red ; text-align: center " > Confirmation de commande et paiement</h1>
+<h:form>
+<h:panelGrid>
+CB : <h:inputText value="Entrez vos coordonnées bancaires" />
+
+
+<p:commandButton value = "Confirmer l'achat" action="#{clMB.ajoutClient}" />
+
+</h:panelGrid>
+</h:form>
+</h:body>
+</html>

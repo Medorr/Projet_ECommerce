@@ -47,7 +47,10 @@
 		
 		<p:column headerText="Action">
 			<h:form>
-				<h:inputText value="#{pr.selectionne}" />
+				Quantité : <h:inputText value="#{panMB.article.quantite}" />
+				<h:commandButton value="Ajouter au panier" action="#{panMB.ajoutArticle}">
+		           <f:setPropertyActionListener value="#{pr}" target="#{panMB.article.produit}" />
+		        </h:commandButton>
 			</h:form>
 		</p:column>
 		

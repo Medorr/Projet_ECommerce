@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name="lcMB")
 @Table(name="ligneCommandes")
 public class LigneCommande implements Serializable {
 	
