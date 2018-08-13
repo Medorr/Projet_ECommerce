@@ -11,27 +11,24 @@
 </h:head>
 
 <h:body>
-<h:form>
-<p:breadCrumb>
-    <p:menuitem value="Accueil" url="accueil.xhtml" />
-    <p:menuitem value="AjoutCat" url="ajoutCat.xhtml" />
-    <p:menuitem value="ModifCat" url="modifCat.xhtml" />
-    <p:menuitem value="SuppCat" url="supprCat.xhtml" />
-    <p:menuitem value="RechCat" url="rechCat.xhtml" />
-</p:breadCrumb>
-</h:form>
-	<h1 style="background-color: red; text-align: center">Formulaire de categories</h1>
+<ui:insert>
+	<ui:include src="templates/menuBar.xhtml"></ui:include>
+</ui:insert>
+<hr/>
+
+	<h1>Recherche de
+		categories</h1>
 
 
 	<h:form>
 		<h:panelGrid columns="2">		
-			Id Categorie: <h:inputText value="#{catMB.categorie.id}"></h:inputText>
-			Nom Categorie: <h:inputText value="#{catMB.categorie.nom}"></h:inputText>
-			<h:commandButton value="Recherche Categorie" action="#{catMB.rechCatByNomOrId}" ajax="false" />
+			Id Categorie: <p:inputText value="#{catMB.categorie.id}"></p:inputText>
+			Nom Categorie: <p:inputText value="#{catMB.categorie.nom}"></p:inputText>
+			<p:commandButton value="Recherche Categorie" action="#{catMB.rechCatByNomOrId}" ajax="false" />
 		</h:panelGrid>
 	</h:form>
 	
-<h1 style="background-color: red ; text-align: center " > Categorie Trouvée</h1>
+<h1 style="color: crimson ; text-align: center " > Categorie Trouvée</h1>
 
 <p:dataTable var="cat" value="#{catMB.categorie}">
     <p:column headerText="Id_categorie">

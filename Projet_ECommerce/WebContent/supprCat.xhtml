@@ -11,24 +11,21 @@
 </h:head>
 
 <h:body>
-<h:form>
-<p:breadCrumb>
-    <p:menuitem value="Accueil" url="accueil.xhtml" />
-    <p:menuitem value="AjoutCat" url="ajoutCat.xhtml" />
-    <p:menuitem value="ModifCat" url="modifCat.xhtml" />
-    <p:menuitem value="SuppCat" url="supprCat.xhtml" />
-    <p:menuitem value="RechCat" url="rechCat.xhtml" />
-</p:breadCrumb>
-</h:form>
-	<h1 style="background-color: red; text-align: center">Suppr de categories</h1>
+<ui:insert>
+	<ui:include src="templates/menuBar.xhtml"></ui:include>
+</ui:insert>
+<hr/>
+
+	<h1>Suppression de
+		categorie</h1>
 
 
 	<h:form>
 		<h:panelGrid columns="2">
 		
-			Id Categorie: <h:inputText value="#{catMB.categorie.id}"></h:inputText>
+			Id Categorie: <p:inputText value="#{catMB.categorie.id}"></p:inputText>
 
-			<h:commandButton value="Suppr Categorie" action="#{catMB.supprCategorie}" />
+			<p:commandButton value="Suppr Categorie" action="#{catMB.supprCategorie}" />
 		</h:panelGrid>
 	</h:form>
 

@@ -10,6 +10,10 @@
 </h:head>
 
 <h:body>
+<ui:insert>
+	<ui:include src="templates/menuBarAdmin.xhtml"></ui:include>
+</ui:insert>
+<hr/>
 <h:form>
 		<h:panelGrid columns="2">
 			Nom: <p:inputText value="#{clMB.client.nomClient}"></p:inputText>
