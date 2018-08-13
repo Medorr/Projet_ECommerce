@@ -68,7 +68,7 @@ public class AdminManagedBean {
 			/** Ajouter l'admin connecté dans la session */
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adSession", connectAd);
 
-			return "accueilCl";
+			return "accueilAd";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Attention!!!Login ou Password erroné"));

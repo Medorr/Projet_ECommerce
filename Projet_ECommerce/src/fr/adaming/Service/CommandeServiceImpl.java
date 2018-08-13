@@ -40,18 +40,16 @@ public class CommandeServiceImpl implements ICommandeService {
 
 	@EJB
 	private ICommandeDao comDao;
-	
+
 	@EJB
 	private ILigneCommande lcDao;
-	
+
 	@EJB
 	private IProduitDao prDao;
-
 
 	@Override
 	public int ajouterCommande(Commande com) {
 
-		
 		return comDao.ajoutCommande(com);
 	}
 
@@ -78,13 +76,13 @@ public class CommandeServiceImpl implements ICommandeService {
 		// TODO Auto-generated method stub
 		return comDao.getAllCommande();
 	}
-	
+
 	@Override
 	public void sendMail(Commande com) {
 
 		// mon compte gmail (pour recevoir les messages)
-		final String username = "tototiti44000@gmail.com";
-		final String password = "adaming44";
+		final String username = "bauchemin.c@gmail.com";
+		final String password = "claire2208";
 
 		// les propriétées
 		Properties props = new Properties();
@@ -118,7 +116,7 @@ public class CommandeServiceImpl implements ICommandeService {
 
 			// Partie 1: Le texte
 			MimeBodyPart mbp1 = new MimeBodyPart();
-			mbp1.setText("Cher(e) Client(e)," +com.getClient().getNomClient()+ "\n\n Merci de votre confiance!"
+			mbp1.setText("Cher(e) Client(e)," + com.getClient().getNomClient() + "\n\n Merci de votre confiance!"
 					+ "\n Vous trouverez ci-joint votre facture"
 					+ "\n\n\n l'equipe Demba, Steven et Claire espère vous revoir bientôt sur notre site!");
 
@@ -154,7 +152,7 @@ public class CommandeServiceImpl implements ICommandeService {
 	/**
 	 * ecrire le pdf (using iText API)
 	 */
-	public void writePdf(OutputStream outputStream, Commande com ) throws Exception {
+	public void writePdf(OutputStream outputStream, Commande com) throws Exception {
 		Document document = new Document();
 		PdfWriter.getInstance(document, outputStream);
 
@@ -168,40 +166,46 @@ public class CommandeServiceImpl implements ICommandeService {
 		document.addAuthor("Steven, Demba et Claire");
 		document.addCreator("Steven, Demba et Claire");
 
-		// composition du pdf
-		Paragraph paragraph = new Paragraph();
-		paragraph.add(new Chunk("Cher(e) Mr(Mme) " + com.getClient().getNomClient() + "," + "\n voici votre facture \n\n"));
-		document.add(paragraph);
-		
 		/** récup de la liste des lignes commandes associées à la commande */
 		List<LigneCommande> listeLc = lcDao.getListeLigneCommandeByComId(com);
-		
-		/** un paragraphe pour chaque lc */
-		for (LigneCommande lc : listeLc){
-			Paragraph paragraph1 = new Paragraph();
-			paragraph.add(new Chunk("Produit : "+prDao.rechProduit(lc.getProduit()).getDesignation()
-					+", quantité : "+lc.getQuantite()
-					+", Prix : "+prDao.rechProduit(lc.getProduit()).getPrix()+" x "+lc.getQuantite()));
-			document.add(paragraph1);
-		}
-		
-		Paragraph paragraph2 = new Paragraph();
-		paragraph.add(new Chunk("_____________________________________________________________________"));
-		document.add(paragraph2);
-		
+
 		/** calcul du prix total */
-		Double d =0.0 ;
-		for(LigneCommande lc : listeLc){
+		Double d = 0.0;
+		for (LigneCommande lc : listeLc) {
 			d += lc.getPrix();
 		}
+
+		// composition du pdf
+		Paragraph paragraph = new Paragraph();
+		paragraph.add(
+				new Chunk("Cher(e) Mr(Mme) " + com.getClient().getNomClient() + "," + "\n voici votre facture \n\n"));
+		document.add(paragraph);
+
+		/** un paragraphe pour chaque lc */
+		for (LigneCommande lc : listeLc) {
+			Paragraph paragraph1 = new Paragraph();
+			paragraph1.add(new Chunk("Produit : " + prDao.rechProduit(lc.getProduit()).getDesignation()
+					+ ", quantité : " + lc.getQuantite() + ", Prix : " + prDao.rechProduit(lc.getProduit()).getPrix()
+					+ "€ x " + lc.getQuantite()));
+			document.add(paragraph1);
+		}
+
+		Paragraph paragraph2 = new Paragraph();
+		paragraph2.add(new Chunk("_____________________________________________________________________"));
+		document.add(paragraph2);
+
 		Paragraph paragraph3 = new Paragraph();
-		paragraph.add(new Chunk("Prix total: " + d));
+		paragraph3.add(new Chunk("Prix total: " + d +" €"));
 		document.add(paragraph3);
-		
-		
+
+		Paragraph paragraph4 = new Paragraph();
+		paragraph4.add(new Chunk(
+				"\n\n\n l'equipe Demba, Steven et Claire espère vous revoir bientôt sur notre site!" + 
+		"\n en cas de reclamation veillez nous contacter à l'adresse suivante:  nomane.boulmerdj@gmail.com"));
+		document.add(paragraph4);
+
 		// fermer le document
 		document.close();
 	}
 
-	
 }

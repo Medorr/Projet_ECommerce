@@ -128,7 +128,7 @@ public class ClientManagedBean implements Serializable {
 			/** Recuperer la liste */
 			List<Client> listeCl = clService.getAllClient();
 
-			return "accueilCl";
+			return "accueilAd";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La modification du client a echoué"));
 
@@ -144,7 +144,7 @@ public class ClientManagedBean implements Serializable {
 			/** Recuperer la liste */
 			List<Client> listeCl = clService.getAllClient();
 
-			return "accueilCl";
+			return "accueilAd";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La suppression du client a echoué"));
 
