@@ -22,8 +22,16 @@ import javax.mail.util.ByteArrayDataSource;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.GrayColor;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.scenario.effect.ImageData;
 
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.dao.ICommandeDao;
@@ -174,24 +182,50 @@ public class CommandeServiceImpl implements ICommandeService {
 		for (LigneCommande lc : listeLc) {
 			d += lc.getPrix();
 		}
-
+		
 		// composition du pdf
 		Paragraph paragraph = new Paragraph();
 		paragraph.add(
-				new Chunk("Cher(e) Mr(Mme) " + com.getClient().getNomClient() + "," + "\n voici votre facture \n\n"));
+				new Chunk("Cher(e) Mr(Mme) " + com.getClient().getNomClient() + "," ));
 		document.add(paragraph);
-
-		/** un paragraphe pour chaque lc */
-		for (LigneCommande lc : listeLc) {
-			Paragraph paragraph1 = new Paragraph();
-			paragraph1.add(new Chunk("Produit : " + prDao.rechProduit(lc.getProduit()).getDesignation()
-					+ ", quantité : " + lc.getQuantite() + ", Prix : " + prDao.rechProduit(lc.getProduit()).getPrix()
-					+ "€ x " + lc.getQuantite()));
-			document.add(paragraph1);
-		}
-
+		
+		Paragraph paragraph1 = new Paragraph();
+		paragraph1.add(
+				new Chunk("Votre commande serat livrée sous 3 jours (ouvrables) à l'adresse suivante: \n" + com.getClient().getAdresse() + "," + "\n\n voici le recapitulatif de votre facture:\n\n"));
+		document.add(paragraph1);
+		
+		//On créer un objet table dans lequel on intialise ça taille.
+	      PdfPTable table = new PdfPTable(3);
+		 //ajout des cellules entêtes
+	      Font f = new Font(FontFamily.HELVETICA, 15, Font.BOLD, GrayColor.BLACK);
+	        PdfPCell cell = new PdfPCell(new Phrase("Produit", f));
+	        cell.setBackgroundColor(GrayColor.LIGHT_GRAY);
+	        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        table.addCell(cell);
+	        PdfPCell cell1 = new PdfPCell(new Phrase("Quantité", f));
+	        cell1.setBackgroundColor(GrayColor.LIGHT_GRAY);
+	        cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        table.addCell(cell1);
+	        PdfPCell cell2 = new PdfPCell(new Phrase("Prix", f));
+	        cell2.setBackgroundColor(GrayColor.LIGHT_GRAY);
+	        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        table.addCell(cell2);
+	        
+		/** Creation du recapitulatif de la commande*/
+		for (LigneCommande lc1 : listeLc) {
+		        
+		      //on ajoute les cellules
+		      table.addCell(prDao.rechProduit(lc1.getProduit()).getDesignation());
+		      table.addCell( "x " +lc1.getQuantite());
+		      table.addCell(prDao.rechProduit(lc1.getProduit()).getPrix()
+					+ "€ x " + lc1.getQuantite());
+		    
+		     
+			} 
+		document.add(table);
+		
 		Paragraph paragraph2 = new Paragraph();
-		paragraph2.add(new Chunk("_____________________________________________________________________"));
+		paragraph2.add(new Chunk("______________________________________________________________________________"));
 		document.add(paragraph2);
 
 		Paragraph paragraph3 = new Paragraph();
@@ -203,7 +237,8 @@ public class CommandeServiceImpl implements ICommandeService {
 				"\n\n\n l'equipe Demba, Steven et Claire espère vous revoir bientôt sur notre site!" + 
 		"\n en cas de reclamation veillez nous contacter à l'adresse suivante:  nomane.boulmerdj@gmail.com"));
 		document.add(paragraph4);
-
+		
+	
 		// fermer le document
 		document.close();
 	}
