@@ -28,18 +28,21 @@ public class ProduitManagedBean implements Serializable {
 	private Produit produit;
 	private Categorie categorie;
 	private LigneCommande ligneCommande;
+	private List<Produit> listeProduitCat;
 
 	private UploadedFile file;
 	
 	@PostConstruct
 	public void init(){
 		listeProduit = prService.getAllProduit();
+		
 	}
 
 	public ProduitManagedBean() {
 		super();
 		this.produit = new Produit();
 		this.categorie = new Categorie();
+		
 	}
 
 	public Produit getProduit() {
@@ -80,6 +83,14 @@ public class ProduitManagedBean implements Serializable {
 
 	public void setFile(UploadedFile file) {
 		this.file = file;
+	}
+
+	public List<Produit> getListeProduitCat() {
+		return listeProduitCat;
+	}
+
+	public void setListeProduitCat(List<Produit> listeProduitCat) {
+		this.listeProduitCat = listeProduitCat;
 	}
 
 	/** méthodes : */
@@ -128,7 +139,7 @@ public class ProduitManagedBean implements Serializable {
 	
 	public String rechProduitByIdCat(){
 		List<Produit>prRechCat = prService.getProduitByIdCat(this.categorie);
-		
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("catEnCours", this.categorie);
 		if(prRechCat != null){
 			listeProduit = prRechCat;
 			return "listeProduit";

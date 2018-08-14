@@ -16,10 +16,12 @@ import javax.servlet.http.HttpSession;
 import fr.adaming.Service.ICommandeService;
 import fr.adaming.Service.IProduitService;
 import fr.adaming.dao.ILigneCommande;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
+import fr.adaming.model.Produit;
 import sun.security.jca.GetInstance;
 
 @ManagedBean(name = "panMB")
@@ -33,6 +35,8 @@ public class PanierManagedBean implements Serializable{
 	private Double prixTotal = 0.0;
 	private int nombreArticles;
 	private Commande commande;
+	private Boolean b = false;
+	private int index;
 	
 	@EJB
 	private IProduitService prService;
@@ -63,6 +67,8 @@ public class PanierManagedBean implements Serializable{
 		super();
 		this.panier = new Panier();
 		this.article = new LigneCommande();
+		this.article.setProduit(new Produit());
+		this.article.getProduit().setCategorie(new Categorie());
 	}
 
 	public Panier getPanier() {
@@ -112,13 +118,81 @@ public class PanierManagedBean implements Serializable{
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
+	
+	public Boolean getB() {
+		return b;
+	}
+
+	public void setB(Boolean b) {
+		this.b = b;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	
 
 	/** méthodes : */
 	public String ajoutArticle() {
-		this.article.setPrix(this.article.getProduit().getPrix()*this.article.getQuantite());
-		this.panier.getListeLignesCommande().add(this.article);
+		System.out.println("La catégorie de l'article ajouté est : "+this.article.getProduit().getCategorie().getNom());
 		
+		this.article.setPrix(this.article.getProduit().getPrix()*this.article.getQuantite());
+		
+		/** si le produit est déjà présent dans le panier, incrémenter la quantité et le prix*/
+		for (LigneCommande lc : this.panier.getListeLignesCommande()){
+			if (lc.getProduit().getIdProduit()==article.getProduit().getIdProduit()){
+				lc.setQuantite(lc.getQuantite()+this.article.getQuantite());
+				lc.setPrix(lc.getPrix()+article.getPrix());
+				b = true;
+			}
+		}
+		/** si le produit n'est pas présent dans le panier, rajouter une ligne de commande */
+		if(b==false){
+			this.panier.getListeLignesCommande().add(this.article);
+		}
+		
+		/** ajouter le panier dans la session */
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLcSession", this.panier.getListeLignesCommande());
+		/** calcul du prix total */
+		prixTotal = 0.0;
+		for(LigneCommande lc : this.panier.getListeLignesCommande()){
+			prixTotal += lc.getPrix();
+		}
+		/** calcul du nombre d'articles */
+		this.nombreArticles=this.panier.getListeLignesCommande().size();
+		
+		return "panier";
+	}
+	public String supprArticle() {
+		
+		/** trouver l'id de la LigneCommande à supprimer dans le panier et récupérer son index*/
+		for (LigneCommande lc : this.panier.getListeLignesCommande()){
+			
+			if (lc.getProduit()
+					.getIdProduit()==
+					article.getProduit()
+					.getIdProduit()){
+				index = this.panier.getListeLignesCommande().indexOf(lc);
+			}
+		}
+		/** supprimer la ligne de commande dans le panier */
+		this.panier.getListeLignesCommande().remove(index);
+		
+		/** ajouter le panier dans la session */
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLcSession", this.panier.getListeLignesCommande());
+		/** calcul du prix total */
+		prixTotal = 0.0;
+		for(LigneCommande lc : this.panier.getListeLignesCommande()){
+			prixTotal += lc.getPrix();
+		}
+		/** calcul du nombre d'articles */
+		this.nombreArticles=this.panier.getListeLignesCommande().size();
+		
 		return "panier";
 	}
 	
@@ -133,6 +207,11 @@ public class PanierManagedBean implements Serializable{
 			lc.setCommande(commande);
 			lcService.ajoutLigneCommande(lc);
 		}
+		
+		/** modification du stock du produit ajouté */
+		article.getProduit().setQuantite(article.getProduit().getQuantite()-article.getQuantite());
+		prService.modifProduit(article.getProduit());
+		
 		comService.sendMail(commande);
 		return "confirmationCommande";
 	}

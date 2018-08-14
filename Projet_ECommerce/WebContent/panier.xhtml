@@ -18,7 +18,7 @@
 
 	<p:dataTable var="lc" value="#{listeLcSession}">
 		<p:column headerText="Photo">
-			<h:graphicImage value="#{pr.image}" style="width:100px;height:100px" />
+			<h:graphicImage value="#{lc.produit.image}" style="width:100px;height:100px" />
 		</p:column>
 		
 		<p:column headerText="Designation">
@@ -29,8 +29,20 @@
 			<h:outputText value="#{lc.quantite}" />
 		</p:column>
 
-		<p:column headerText="Prix">
-			<h:outputText value="#{lc.prix}" />
+		<p:column headerText="Prix (Sous-total)">
+			<h:outputText value="#{lc.produit.prix} (#{lc.prix}) €" />
+		</p:column>
+		
+		<p:column headerText="Catégorie">
+			<h:outputText value="#{lc.produit.categorie.nom}" />
+		</p:column>
+		
+		<p:column headerText="Action">
+			<h:form>
+				<h:commandButton value="Retirer du panier" action="#{panMB.supprArticle}">
+		           <f:setPropertyActionListener value="#{lc.produit}" target="#{panMB.article.produit}" />
+		        </h:commandButton>
+			</h:form>
 		</p:column>
 		
 	</p:dataTable>
