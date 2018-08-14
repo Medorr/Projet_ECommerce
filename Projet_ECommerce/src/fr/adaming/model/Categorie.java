@@ -1,6 +1,7 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,14 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/** Classe développée par Demba */
 @Entity
 @Table(name="categories")
 public class Categorie implements Serializable{
 	
-	/**Les attributs*/
-	@Id
+	/**Declaration des attributs*/
+	@Id //**@Id permet l'auto incrementation de l'id*/
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_cat")
+	@Column(name="id_cat") /** id_cat pour la différencier de id_co (commande) et id_cl (catégorie)  */
 	private Long id;
 	private String nom;
 	@Lob

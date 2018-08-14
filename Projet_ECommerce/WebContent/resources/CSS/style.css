@@ -1,0 +1,23 @@
+.header-style {
+    text-align: center;
+    font-size: 10px;
+    display: block;
+    padding: 20px;
+    background-color: wheat;
+}
+
+.corps-style {
+    text-align: center;
+    font-size: 20px;
+    display: block;
+    padding: 1px;
+    background-color: antiquewhite;
+}
+
+.footer-style {
+    text-align: center;
+    font-size: 250px;
+    display: block;
+    padding: 1px;
+    background-color: antiquewhite;
+}

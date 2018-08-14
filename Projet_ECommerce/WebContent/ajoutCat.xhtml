@@ -9,25 +9,18 @@
 <h:head>
 	<title>accueil Facelet</title>
 </h:head>
-
 <h:body>
-
-<ui:insert>
-	<ui:include src="templates/menuBar.xhtml"></ui:include>
-</ui:insert>
-<hr/>
-
-	<h1>Ajout de
-		categories</h1>
-
-
+<ui:composition template="/templates/layout.xhtml">
+<ui:define name="corps">
+	
+	<h2>Ajout de categories</h2>
 	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 			Nom Categorie: <p:inputText value="#{catMB.categorie.nom}"></p:inputText>
 			Description: <p:inputText value="#{catMB.categorie.description}"></p:inputText>
+		
 			Photo: <p:fileUpload value="#{catMB.file}" mode="simple" skinSimple="true" />
-
-
+		
 			<p:commandButton value="Ajout Categorie" action="#{catMB.addCategorie}" />
 		</h:panelGrid>
 	</h:form>
@@ -36,7 +29,7 @@
 		<h:messages />
 	</h1>
 
-
-
+</ui:define>
+</ui:composition>
 </h:body>
 </html>
